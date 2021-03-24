@@ -1,0 +1,53 @@
+<resources>
+    <!--================ GENERAL ==================-->
+    <string name="app_name">Dictionary.</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!--================ COMPONENTS ==================-->
+    <!-- Strings used for first card -->
+    <string name="edt_card_hint">Enter text here..</string>
+    <string name="edt_card_result_hint">Results here..</string>
+
+    <!-- Strings used for list all words -->
+    <string name="list_all_words_img_play_txt">Listen to the word button</string>
+
+
+    <!--================ MENUs ==================-->
+    <string name="menu_act_main_txt_definition">Definition</string>
+    <string name="menu_act_main_txt_translation">Translation</string>
+    <string name="menu_act_main_txt_settings">Settings</string>
+
+
+    <!--================ ACTIVITIES ==================-->
+    <!-- Main Activity -->
+    <string name="act_main_search_txt">Search word..</string>
+    <string name="act_main_txt_language">English</string>
+    <string name="act_main_txt_all_words">All words</string>
+
+    <!-- Definition Activity -->
+    <string name="act_definitions_txt_tool_definition">Definitions</string>
+    <string name="act_definitions_txt_definition">DEFINITIONS</string>
+
+
+    <!-- Walkthrough Activity -->
+
+
+    <!--================ FRAGMENT ==================-->
+    <!-- Welcome Fragment -->
+    <string name="frag_btn_next">NEXT</string>
+    <string name="frag_voice_btn_finish">FINISH</string>
+    <string name="frag_welcome_title">WELCOME</string>
+    <string name="frag_translation_title">TRANSLATE</string>
+    <string name="frag_translation_subtitle">Learn in different languages.</string>
+    <string name="frag_voice_title">VOICE RECOGNITION</string>
+    <string name="frag_voice_subtitle">Your voice will be my command.</string>
+    <string name="frag_language_title">CHOOSE YOUR LANGUAGE</string>
+
+    <string name="frag_txt_eng">English</string>
+    <string name="frag_txt_fr">French</string>
+
+    <!-- Definition Activity -->
+    <string name="frag_translation_edt_hint_txt">Enter text here..</string>
+    <string name="frag_translation_txt_translated">TRANSLATION</string>
+</resources>

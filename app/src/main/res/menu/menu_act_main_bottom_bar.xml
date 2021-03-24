@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_action_definition"
+        android:enabled="true"
+        android:icon="@drawable/ic_definition_24"
+        android:title="@string/menu_act_main_txt_definition" />
+    <item
+        android:id="@+id/menu_action_translation"
+        android:enabled="true"
+        android:icon="@drawable/ic_translate_24"
+        android:title="@string/menu_act_main_txt_translation"/>
+    <item
+        android:id="@+id/menu_action_settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_24"
+        android:title="@string/menu_act_main_txt_settings"/>
+</menu>

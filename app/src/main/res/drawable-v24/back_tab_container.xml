@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/grey"/>
+    <corners android:radius="@dimen/act_main_tab_container_radius" />
+</shape>

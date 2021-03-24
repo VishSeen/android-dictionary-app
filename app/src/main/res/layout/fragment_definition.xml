@@ -1,0 +1,10 @@
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frag_definition_listview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_general"
+    android:layout_marginLeft="@dimen/margin_general"
+    android:layout_marginEnd="@dimen/margin_general"
+    android:layout_marginRight="@dimen/margin_general"
+    tools:listitem="@layout/list_dictionary" />

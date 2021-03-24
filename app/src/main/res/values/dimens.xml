@@ -1,0 +1,44 @@
+<resources>
+    <!--================ GENERAL ==================-->
+    <dimen name="margin_general">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="img_btn_padding">8dp</dimen>
+
+
+    <!--================ ACTIVITIES ==================-->
+    <!-- Splash activity -->
+    <dimen name="logo_mu_size">75dp</dimen>
+    <dimen name="logo_splash_size">32sp</dimen>
+
+    <!-- Main activity -->
+    <dimen name="act_main_logo_size">32sp</dimen>
+    <dimen name="act_main_txt_language_size">12sp</dimen>
+    <dimen name="act_main_search_bar_radius">80dp</dimen>
+    <dimen name="act_main_search_bar_padding_vertical">10dp</dimen>
+    <dimen name="act_main_search_bar_padding_horizontal">16dp</dimen>
+    <dimen name="act_main_search_bar_txt_size">12sp</dimen>
+    <dimen name="act_main_search_bar_elevation">2dp</dimen>
+    <dimen name="act_main_txt_all_words_size">12sp</dimen>
+    <dimen name="act_main_tab_container_radius">15dp</dimen>
+
+
+    <!--================ COMPONENTS ==================-->
+    <!-- Dimens for bottom sheets -->
+    <dimen name="bottom_sheet_radius">50dp</dimen>
+    <dimen name="bottom_sheet_title_size">12sp</dimen>
+    <dimen name="bottom_sheet_opt_size">14sp</dimen>
+
+    <!-- Dimens for list all words -->
+    <dimen name="list_all_words_height">75dp</dimen>
+    <dimen name="list_all_words_title_size">20sp</dimen>
+    <dimen name="list_all_words_sub_title_size">12sp</dimen>
+
+
+    <dimen name="card_txt_size">24sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+
+    <!--================ FRAGMENTS ==================-->
+    <dimen name="frag_translation_text_bar_radius">20dp</dimen>
+    <dimen name="frag_button_width">150dp</dimen>
+</resources>

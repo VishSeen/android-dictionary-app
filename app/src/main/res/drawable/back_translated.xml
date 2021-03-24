@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/blue_dark"/>
+    <corners android:radius="@dimen/frag_translation_text_bar_radius" />
+</shape>
