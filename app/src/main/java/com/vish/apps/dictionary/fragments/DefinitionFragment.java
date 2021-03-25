@@ -49,28 +49,28 @@ public class DefinitionFragment extends Fragment {
 
         listWords = new ArrayList<>();
         Word wordCat = new Word("03", "Cat", "a small domesticated carnivore, Felis domestica or F. catus, bred in a number of varieties.");
-//        Word wordDog = new Word("01", "Dog", "a domesticated canid, Canis familiaris, bred in many varieties.");
-//        Word wordHello = new Word("02", "Hello", "used as a greeting or to begin a phone conversation.");
-//        Word wordMan = new Word("04", "Man", "a member of the species Homo sapiens or all the members of this species collectively, without regard to sex");
-//        Word wordWoman = new Word("05","Woman", "a member of the species Homo sapiens or all the members of this species collectively, without regard to sex");
-//        Word wordBaby = new Word("06","Baby", "an infant or very young child.");
-//        Word wordHouse = new Word("07", "House", "a building in which people live; residence for human beings.");
-//        Word wordCar = new Word("12","Car", "a vehicle running on rails, as a streetcar or railroad car.");
-//        Word wordFood = new Word("11","Food", "any nourishing substance that is eaten, drunk, or otherwise taken into the body to sustain life, provide energy, promote growth, etc.");
-//        Word wordEarth = new Word("10", "Earth", "the inhabitants of this planet, especially the human inhabitants");
-//        Word wordZebra = new Word("13", "Zebra", "any of several horse like African mammals of the genus Equus, each species having a characteristic pattern of black or dark-brown stripes on a whitish background: all zebra species are threatened or endangered.");
+        Word wordDog = new Word("01", "Dog", "a domesticated canid, Canis familiaris, bred in many varieties.");
+        Word wordHello = new Word("02", "Hello", "used as a greeting or to begin a phone conversation.");
+        Word wordMan = new Word("04", "Man", "a member of the species Homo sapiens or all the members of this species collectively, without regard to sex");
+        Word wordWoman = new Word("05","Woman", "a member of the species Homo sapiens or all the members of this species collectively, without regard to sex");
+        Word wordBaby = new Word("06","Baby", "an infant or very young child.");
+        Word wordHouse = new Word("07", "House", "a building in which people live; residence for human beings.");
+        Word wordCar = new Word("12","Car", "a vehicle running on rails, as a streetcar or railroad car.");
+        Word wordFood = new Word("11","Food", "any nourishing substance that is eaten, drunk, or otherwise taken into the body to sustain life, provide energy, promote growth, etc.");
+        Word wordEarth = new Word("10", "Earth", "the inhabitants of this planet, especially the human inhabitants");
+        Word wordZebra = new Word("13", "Zebra", "any of several horse like African mammals of the genus Equus, each species having a characteristic pattern of black or dark-brown stripes on a whitish background: all zebra species are threatened or endangered.");
 
-//        listWords.add(wordBaby);
-//        listWords.add(wordCar);
+        listWords.add(wordBaby);
+        listWords.add(wordCar);
         listWords.add(wordCat);
-//        listWords.add(wordDog);
-//        listWords.add(wordEarth);
-//        listWords.add(wordFood);
-//        listWords.add(wordHello);
-//        listWords.add(wordHouse);
-//        listWords.add(wordMan);
-//        listWords.add(wordWoman);
-//        listWords.add(wordZebra);
+        listWords.add(wordDog);
+        listWords.add(wordEarth);
+        listWords.add(wordFood);
+        listWords.add(wordHello);
+        listWords.add(wordHouse);
+        listWords.add(wordMan);
+        listWords.add(wordWoman);
+        listWords.add(wordZebra);
     }
 
     @Override

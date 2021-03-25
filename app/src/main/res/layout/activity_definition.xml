@@ -100,7 +100,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/blue_text_primary"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -126,7 +126,7 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/blue_text_primary"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"

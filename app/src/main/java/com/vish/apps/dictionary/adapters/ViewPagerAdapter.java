@@ -26,15 +26,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 TranslationFragment translationFragment = new TranslationFragment();
                 return translationFragment;
             case 2:
-                SettingsFragment settingsFragment = new SettingsFragment();
-                return settingsFragment;
         }
         return null;
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 
 

@@ -1,5 +1,6 @@
 package com.vish.apps.dictionary;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(MainActivity.this);
 
         // Initializing views
-        ImageButton btnSearch = (ImageButton) findViewById(R.id.img_btn_search);
+        ImageButton btnSearch = (ImageButton) findViewById(R.id.act_main_img_btn_settings);
         ViewPager2 viewPager = (ViewPager2) findViewById(R.id.act_main_viewpager);
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -44,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.menu_action_translation:
                         viewPager.setCurrentItem(1, true);
-                        return true;
-                    case R.id.menu_action_settings:
-                        viewPager.setCurrentItem(2, true);
                         return true;
                 }
                 return false;
@@ -68,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         bottomNavView.getMenu().findItem(R.id.menu_action_translation).setChecked(true);
                         break;
-                    case 2:
-                        bottomNavView.getMenu().findItem(R.id.menu_action_settings).setChecked(true);
-                        break;
                 }
             }
             @Override
@@ -82,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
         });
     }

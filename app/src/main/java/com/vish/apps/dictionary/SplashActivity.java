@@ -2,48 +2,61 @@ package com.vish.apps.dictionary;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private SharedPreferences sharedPrefs = null;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor sharedEditor;
+    /** Duration of wait **/
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        sharedPrefs = getSharedPreferences("com.vish.apps.dictionary", MODE_PRIVATE);
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        sharedEditor = sharedPreferences.edit();
 
-        startActivity(new Intent(SplashActivity.this, WalkthroughActivity.class));
-        finish();
+        if (isFirstTime()) {
+            startActivity(new Intent(SplashActivity.this, WalkthroughActivity.class));
+        } else {
+            /* New Handler to start the Menu-Activity
+             * and close this Splash-Screen after some seconds.*/
+            new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    /* Create an Intent that will start the Menu-Activity. */
+                    Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                    SplashActivity.this.startActivity(mainIntent);
+                    SplashActivity.this.finish();
+                }
+            }, SPLASH_DISPLAY_LENGTH);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
-        // check if app has run before
-        if (sharedPrefs.getBoolean("appHasRun", true)) {
-            // show bottom sheet to choose language
-            Intent intent = new Intent(SplashActivity.this, WalkthroughActivity.class);
-            startActivity(intent);
-
-            // update value in sharedPrefs
-            sharedPrefs.edit().putBoolean("appHasRun", false).apply();
+    // check if sharedPrefs has been created before
+    public boolean isFirstTime() {
+        if (sharedPreferences.getBoolean("firstTime", true)) {
+            sharedEditor.putBoolean("firstTime", false);
+            sharedEditor.commit();
+            sharedEditor.apply();
+            return true;
         } else {
-            new CountDownTimer(2000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                }
-                public void onFinish() {
-                    Intent intent = new Intent(SplashActivity.this, WalkthroughActivity.class);
-                    startActivity(intent);
-                }
-            }.start();
+            return false;
         }
     }
+
 }

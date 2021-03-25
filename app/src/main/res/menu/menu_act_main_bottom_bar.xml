@@ -11,9 +11,4 @@
         android:enabled="true"
         android:icon="@drawable/ic_translate_24"
         android:title="@string/menu_act_main_txt_translation"/>
-    <item
-        android:id="@+id/menu_action_settings"
-        android:enabled="true"
-        android:icon="@drawable/ic_settings_24"
-        android:title="@string/menu_act_main_txt_settings"/>
 </menu>

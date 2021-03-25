@@ -24,6 +24,7 @@
     <string name="act_main_search_txt">Search word..</string>
     <string name="act_main_txt_language">English</string>
     <string name="act_main_txt_all_words">All words</string>
+    <string name="act_main_txt_search_hint">Search here ..</string>
 
     <!-- Definition Activity -->
     <string name="act_definitions_txt_tool_definition">Definitions</string>
@@ -49,5 +50,21 @@
 
     <!-- Definition Activity -->
     <string name="frag_translation_edt_hint_txt">Enter text here..</string>
-    <string name="frag_translation_txt_translated">TRANSLATION</string>
+    <string name="frag_translation_txt_translated">TRANSLATED TEXT</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
