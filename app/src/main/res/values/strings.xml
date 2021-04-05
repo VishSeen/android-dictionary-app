@@ -13,7 +13,7 @@
     <string name="list_all_words_img_play_txt">Listen to the word button</string>
 
 
-    <!--================ MENUs ==================-->
+    <!--================ MENUS ==================-->
     <string name="menu_act_main_txt_definition">Definition</string>
     <string name="menu_act_main_txt_translation">Translation</string>
     <string name="menu_act_main_txt_settings">Settings</string>
@@ -24,14 +24,15 @@
     <string name="act_main_search_txt">Search word..</string>
     <string name="act_main_txt_language">English</string>
     <string name="act_main_txt_all_words">All words</string>
-    <string name="act_main_txt_search_hint">Search here ..</string>
+    <string name="act_main_txt_search_hint">Search words</string>
 
     <!-- Definition Activity -->
     <string name="act_definitions_txt_tool_definition">Definitions</string>
     <string name="act_definitions_txt_definition">DEFINITIONS</string>
 
+    <!-- Settings Activity -->
+    <string name="act_settings_txt_tool_settings">Settings</string>
 
-    <!-- Walkthrough Activity -->
 
 
     <!--================ FRAGMENT ==================-->
@@ -45,12 +46,22 @@
     <string name="frag_voice_subtitle">Your voice will be my command.</string>
     <string name="frag_language_title">CHOOSE YOUR LANGUAGE</string>
 
+    <!-- Language Fragment -->
     <string name="frag_txt_eng">English</string>
     <string name="frag_txt_fr">French</string>
 
-    <!-- Definition Activity -->
+    <!-- Definition Fragment -->
+    <string name="frag_definition_txt_all_words">ALL WORDS</string>
+
+    <!-- Translation Fragment -->
     <string name="frag_translation_edt_hint_txt">Enter text here..</string>
     <string name="frag_translation_txt_translated">TRANSLATED TEXT</string>
+
+
+
+
+
+
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -49,39 +49,13 @@
             app:layout_constraintTop_toBottomOf="@+id/act_main_edt_search"
             app:layout_constraintVertical_bias="1.0">
 
-        </androidx.viewpager2.widget.ViewPager2>
+        </androidx.viewpager2.widget.ViewPager2><![CDATA[
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/act_main_bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/back_bottom_bar"
-            android:theme="@style/Widget.BottomNavigationView"
-            app:itemHorizontalTranslationEnabled="false"
-            app:labelVisibilityMode="selected"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/menu_act_main_bottom_bar"
-            app:itemIconTint="@drawable/bottom_nav_item_state"
-            app:itemTextColor="@drawable/bottom_nav_item_state"/>
         />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/act_main_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:clickable="true"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toTopOf="@+id/act_main_bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_voice_24" />
+
+
+        ]]>
 
         <EditText
             android:id="@+id/act_main_edt_search"
@@ -93,7 +67,7 @@
             android:background="@drawable/back_search"
             android:elevation="2dp"
             android:ems="10"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/poppins_light"
             android:hint="@string/act_main_txt_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="textPersonName"
@@ -104,10 +78,58 @@
             android:paddingBottom="8dp"
             android:singleLine="true"
             android:textColor="@color/blue_text_primary"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/back_bottom_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/act_main_bottom_navigation"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="#00FFFFFF"
+                android:theme="@style/Widget.BottomNavigationView"
+                app:elevation="0dp"
+                app:itemHorizontalTranslationEnabled="false"
+                app:itemIconTint="@drawable/bottom_nav_item_state"
+                app:itemTextColor="@drawable/bottom_nav_item_state"
+                app:labelVisibilityMode="selected"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/act_main_fab"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/menu_act_main_bottom_bar">
+
+            </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/act_main_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_voice_24" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

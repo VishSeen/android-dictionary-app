@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.vish.apps.dictionary.fragments.DefinitionFragment;
-import com.vish.apps.dictionary.fragments.SettingsFragment;
 import com.vish.apps.dictionary.fragments.TranslationFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {

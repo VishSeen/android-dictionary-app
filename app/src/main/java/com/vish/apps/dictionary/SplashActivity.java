@@ -25,6 +25,9 @@ public class SplashActivity extends AppCompatActivity {
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         sharedEditor = sharedPreferences.edit();
 
+        // uncomment this for working splash / work through
+//        startActivity(new Intent(SplashActivity.this, WalkthroughActivity.class)); //delete this went finishing working with walk through
+
         if (isFirstTime()) {
             startActivity(new Intent(SplashActivity.this, WalkthroughActivity.class));
         } else {

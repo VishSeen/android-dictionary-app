@@ -42,16 +42,17 @@
         android:fontFamily="@font/poppins_bold"
         android:textColor="@color/blue_text_primary"
         android:textSize="40sp"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton2"
+        app:layout_constraintEnd_toStartOf="@+id/act_definition_fab_talk"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/act_definition_fab_talk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:clickable="true"
+        android:onClick="btnSpeechClicked"
         app:ensureMinTouchTargetSize="false"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="@+id/act_definition_txt_title"
@@ -110,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="32dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="NOUN"
                     android:textColor="@color/blue_text_secondary"

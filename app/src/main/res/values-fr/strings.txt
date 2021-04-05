@@ -1,0 +1,81 @@
+<resources>
+    <!--================ GENERAL ==================-->
+    <string name="app_name">Dictionnaire</string>
+    <string name="action_settings">Paramètres</string>
+
+
+    <!--================ COMPONENTS ==================-->
+    <!-- Strings used for first card -->
+    <string name="edt_card_hint">Entrez le text ici..</string>
+    <string name="edt_card_result_hint">Les résultats ici..</string>
+
+    <!-- Strings used for list all words -->
+    <string name="list_all_words_img_play_txt">Écoutez le bouton de mot</string>
+
+
+    <!--================ MENUS ==================-->
+    <string name="menu_act_main_txt_definition">Définition</string>
+    <string name="menu_act_main_txt_translation">Traduction</string>
+    <string name="menu_act_main_txt_settings">Paramètres</string>
+
+
+    <!--================ ACTIVITIES ==================-->
+    <!-- Main Activity -->
+    <string name="act_main_search_txt">Mot de recherche..</string>
+    <string name="act_main_txt_language">Anglais</string>
+    <string name="act_main_txt_all_words">Tous les mots</string>
+    <string name="act_main_txt_search_hint">Rechercher des mots</string>
+
+    <!-- Definition Activity -->
+    <string name="act_definitions_txt_tool_definition">Définition</string>
+    <string name="act_definitions_txt_definition">DÉFINITIONS</string>
+
+    <!-- Settings Activity -->
+    <string name="act_settings_txt_tool_settings">Les paramètres</string>
+
+
+
+    <!--================ FRAGMENT ==================-->
+    <!-- Welcome Fragment -->
+    <string name="frag_btn_next">SUIVANT</string>
+    <string name="frag_voice_btn_finish">TERMINER</string>
+    <string name="frag_welcome_title">BIENVENU</string>
+    <string name="frag_translation_title">TRADUIRE</string>
+    <string name="frag_translation_subtitle">Apprenez dans différentes langues.</string>
+    <string name="frag_voice_title">RECONNAISSANCE VOCALE</string>
+    <string name="frag_voice_subtitle">Votre voix sera ma commande.</string>
+    <string name="frag_language_title">CHOISISSEZ VOTRE LANGUE</string>
+
+    <!-- Language Fragment -->
+    <string name="frag_txt_eng">Anglais</string>
+    <string name="frag_txt_fr">Français</string>
+
+    <!-- Definition Fragment -->
+    <string name="frag_definition_txt_all_words">TOUS LES MOTS</string>
+
+    <!-- Translation Fragment -->
+    <string name="frag_translation_edt_hint_txt">Entrez le texte ici..</string>
+    <string name="frag_translation_txt_translated">TEXTE TRADUIT</string>
+
+
+
+
+
+
+    <string name="title_activity_settings">ParamètresActivité</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Synchroniser</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">YVotre signature</string>
+    <string name="reply_title">Action de réponse par défaut</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Synchroniser régulièrement les e-mails</string>
+    <string name="attachment_title">Télécharger les pièces jointes entrantes</string>
+    <string name="attachment_summary_on">Télécharger automatiquement les pièces jointes pour les e-mails entrants</string>
+    <string name="attachment_summary_off">Télécharger uniquement les pièces jointes lorsqu\'elles sont demandées manuellement</string>
+
+</resources>
