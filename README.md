@@ -1,8 +1,10 @@
 # Dictionary app
-A multi lingual Mauritian dictionary. 
+A multi lingual Mauritian dictionary. Includes voice search, reading definition searched with the help of Google Text to Speech api, translate words and view definitions from a list of languages.
 
 ### Technology used
 - Oxford dictionary API
+- Google Text to Speech API
+- Google Speech to Text API
 - Android Room for local database to store searched words
 
 
