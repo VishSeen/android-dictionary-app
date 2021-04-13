@@ -9,6 +9,7 @@ A multi lingual Mauritian dictionary. Includes voice search, reading definition 
 
 
 ### UI Designs
+- UI/UX designed made in Figma app
 ![frame](https://user-images.githubusercontent.com/13452864/114368939-f1d71c80-9b8e-11eb-977e-059c985a76ea.png)
 
 
