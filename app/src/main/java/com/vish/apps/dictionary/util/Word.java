@@ -2,17 +2,12 @@ package com.vish.apps.dictionary.util;
 
 public class Word {
 
-    private int mId;
+    private static int mId = 0;
     private String mTitle;
     private String mDefinition;
 
-
-    public Word(String title) {
-        mTitle = title;
-    }
-
-    public Word(int id, String title, String definition) {
-        mId = id;
+    public Word (String title, String definition) {
+        mId =+ 1;
         mTitle = title;
         mDefinition = definition;
     }

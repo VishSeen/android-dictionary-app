@@ -1,6 +1,6 @@
 <resources>
     <!--================ GENERAL ==================-->
-    <string name="app_name">Dictionnaire</string>
+    <string name="app_name">Dictionnaire.</string>
     <string name="action_settings">Paramètres</string>
 
 
@@ -31,7 +31,17 @@
     <string name="act_definitions_txt_definition">DÉFINITIONS</string>
 
     <!-- Settings Activity -->
+    <string name="title_activity_settings">ParamètresActivité</string>
     <string name="act_settings_txt_tool_settings">Les paramètres</string>
+    <string name="act_settings_txt_category_general">Général</string>
+    <string name="act_settings_txt_list_languages">Langages</string>
+    <string name="act_settings_txt_list_dark">Mode sombre</string>
+    <string name="act_settings_txt_list_download_dict">Télécharger des dictionnaires</string>
+
+    <string name="act_settings_txt_category_help">Aider</string>
+    <string name="act_settings_txt_list_how">Comment utiliser</string>
+    <string name="act_settings_txt_list_feedback">Retour</string>
+    <string name="act_settings_txt_list_about">À propos de nous</string>
 
 
 
@@ -55,27 +65,6 @@
 
     <!-- Translation Fragment -->
     <string name="frag_translation_edt_hint_txt">Entrez le texte ici..</string>
-    <string name="frag_translation_txt_translated">TEXTE TRADUIT</string>
-
-
-
-
-
-
-    <string name="title_activity_settings">ParamètresActivité</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Synchroniser</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">YVotre signature</string>
-    <string name="reply_title">Action de réponse par défaut</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Synchroniser régulièrement les e-mails</string>
-    <string name="attachment_title">Télécharger les pièces jointes entrantes</string>
-    <string name="attachment_summary_on">Télécharger automatiquement les pièces jointes pour les e-mails entrants</string>
-    <string name="attachment_summary_off">Télécharger uniquement les pièces jointes lorsqu\'elles sont demandées manuellement</string>
-
+    <string name="frag_translation_txt_translated">Texte traduite ici..</string>
+    <string name="frag_translation_txt_error">Désolé, aucun texte n\'a été saisi.</string>
 </resources>

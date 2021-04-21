@@ -21,7 +21,7 @@
             android:theme="@style/Theme.Dictionary.Splash.NoActionBar" />
         <activity
             android:name=".DefinitionActivity"
-            android:theme="@style/Theme.Dictionary.Splash.NoActionBar" />
+            android:theme="@style/Theme.Dictionary.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:noHistory="true"

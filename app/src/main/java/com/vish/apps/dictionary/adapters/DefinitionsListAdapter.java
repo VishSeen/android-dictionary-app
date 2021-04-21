@@ -18,7 +18,7 @@ import java.util.List;
 
 public class DefinitionsListAdapter extends ArrayAdapter<Word> {
     private final Context mContext;
-    private List<Word> mListWords = new ArrayList<>();
+    private List<Word> mListWords;
 
     public DefinitionsListAdapter(Context context, List<Word> listWords) {
         super(context, -1, listWords);
@@ -38,5 +38,13 @@ public class DefinitionsListAdapter extends ArrayAdapter<Word> {
         txtDefinition.setText(mListWords.get(position).getDefinition());
 
         return rootView;
+    }
+
+    public List<Word> getItemList() {
+        return mListWords;
+    }
+
+    public void setItemList(List<Word> listWords) {
+        mListWords = listWords;
     }
 }

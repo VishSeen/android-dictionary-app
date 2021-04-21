@@ -1,25 +1,22 @@
 package com.vish.apps.dictionary.fragments;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.vish.apps.dictionary.DefinitionActivity;
-import com.vish.apps.dictionary.MainActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
-import com.vish.apps.dictionary.util.OxfordRequests;
+import com.vish.apps.dictionary.util.Oxford;
 import com.vish.apps.dictionary.util.Word;
 
 import java.util.ArrayList;
@@ -35,11 +32,13 @@ public class DefinitionFragment extends Fragment {
         return fragment;
     }
 
-//    private DictionaryListAdapter dictionaryListAdapter;
-    private List<Word> listWords;
-    public String url;
-    public String[] predefinedWords= {"Ant", "Aunt", "Baby", "Banana", "Car", "Cat", "Dirty", "Dog", "Doom", "Eat", "Ear", "Exclude", "Hello", "In", "Inner", "Kangaroo", "Kart", "Joke", "Journey", "June", "Lake", "Lobster", "Long"};
 
+    private EditText edtSearch;
+    private DefinitionsListAdapter adapter;
+    private List<Word> mListWords;
+    private String url;
+    private String[] predefinedWords= {"Ant", "Aunt", "Baby", "Banana", "Car", "Cat", "Dirty", "Dog", "Doom", "Eat", "Ear", "Exclude", "Hello", "In", "Inner", "Kangaroo", "Kart", "Joke", "Journey", "June", "Lake", "Lobster", "Long"};
+    private ListView listView;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -50,30 +49,27 @@ public class DefinitionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        listWords = new ArrayList<>();
-
-        // loops through array of predefined words to find
-        for (int i = 0; i < predefinedWords.length; i++){
-            Word currentWord = new Word(i, predefinedWords[i], "Fetching definition...");
-
-            url = definitionEntries(predefinedWords[i]);
-            new OxfordRequests(currentWord).execute(url);
-
-            listWords.add(currentWord);
-        }
+        mListWords = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_definition, container, false);
-        View mFab = getActivity().findViewById(R.id.act_main_fab);
 
-        DefinitionsListAdapter adapter = new DefinitionsListAdapter(getContext(), listWords);
-
-        ListView listView = view.findViewById(R.id.frag_definition_listview);
+        edtSearch = view.findViewById(R.id.act_main_edt_search);
+        adapter = new DefinitionsListAdapter(getContext(), mListWords);
+        listView = view.findViewById(R.id.frag_definition_listview);
         listView.setAdapter(adapter);
+
+        // loops through array of predefined words to find
+        for (int i = 0; i < predefinedWords.length; i++){
+            Word current = new Word(predefinedWords[i], "Loading...");
+            url = definitionEntries(predefinedWords[i], "en-gb");
+            new Oxford(current).execute(url);
+
+            mListWords.add(current);
+        }
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,31 +82,60 @@ public class DefinitionFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-                if(scrollState == SCROLL_STATE_TOUCH_SCROLL){
-                    mFab.animate().translationY(mFab.getHeight() + getResources().getDimension(R.dimen.fab_margin)).setInterpolator(new LinearInterpolator()).setDuration(200);
-                }else{
-                    mFab.animate().translationY(0).setInterpolator(new LinearInterpolator()).setDuration(200);
+
+        edtSearch.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View view, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            searchWordClick(view);
+                            return true;
+                        default:
+                            break;
+                    }
                 }
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                return false;
             }
         });
 
-        adapter.notifyDataSetChanged();
 
         return view;
     }
 
-    private String definitionEntries(String wordSearch) {
-        final String language = "en-gb";
+    public void searchWordClick(View v) {
+        getSearchText();
+    }
+
+    public void getSearchText() {
+//        String edtText = edtSearch.getText().toString();
+//
+//        Word searchedWord = new Word(01, edtText, "Loading...");
+//        url = definitionEntries(edtText);
+//        Oxford oxford = new Oxford();
+//        oxford.execute(url);
+//
+//        Intent intent = new Intent(this, DefinitionActivity.class);
+//        intent.putExtra("Title", searchedWord.getTitle());
+//        intent.putExtra("Definition", searchedWord.getDefinition());
+//        startActivity(intent);
+    }
+
+    private String definitionEntries(String wordSearch, String language) {
+        final String word = wordSearch;
+        final String fields = "definitions"; // can add etymologies or nouns here
+        final String strictMatch = "false";
+        final String word_id = word.toLowerCase();
+
+        return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
+    }
+
+    private String urlEntries(String wordSearch, String language) {
         final String word = wordSearch;
         final String fields = "definitions"; // can add etymologies or nouns here
         final String strictMatch = "false";

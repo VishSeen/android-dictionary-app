@@ -6,13 +6,18 @@
         <item name="colorPrimary">@color/grey</item>
         <item name="colorPrimaryVariant">@color/grey_dark</item>
         <item name="colorOnPrimary">@color/blue</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/accent</item>
         <item name="colorSecondaryVariant">#D81B60</item>
         <item name="colorOnSecondary">@color/black_text_secondary</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <item name="preferenceTheme">@style/Preference.v21</item>
     </style>
+
     <style name="Theme.Dictionary.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -64,6 +69,18 @@
     <style name="Widget.BottomNavigationView"
         parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <!-- Spinner in translation fragment -->
+    <style name="SpinnerTheme" parent="@style/Widget.AppCompat.Spinner">
+        <item name="overlapAnchor">true</item>
+        <item name="android:background">@drawable/back_spinner_icon</item>
+    </style>
+
+    <style name="Preference.v21" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:tint">@color/blue_dark</item>
+        <item name="android:textColor">@color/blue_text_primary</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
 

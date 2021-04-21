@@ -39,6 +39,9 @@
 
 
     <!--================ FRAGMENTS ==================-->
+    <!-- Dimens for fragment walkthrough -->
+    <dimen name="frag_walkthrough_button_width">150dp</dimen>
+
     <dimen name="frag_translation_text_bar_radius">20dp</dimen>
-    <dimen name="frag_button_width">150dp</dimen>
+    <dimen name="frag_translation_spinner_bar_radius">10dp</dimen>
 </resources>

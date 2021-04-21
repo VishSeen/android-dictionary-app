@@ -33,7 +33,7 @@ public class DefinitionActivity extends AppCompatActivity {
             @Override
             public void onInit(int status) {
                 if(status != TextToSpeech.ERROR) {
-                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.setLanguage(Locale.getDefault());
                 }
             }
         });

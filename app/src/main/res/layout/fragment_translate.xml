@@ -45,7 +45,7 @@
 
     <Button
         android:id="@+id/frag_language_btn_finish"
-        android:layout_width="@dimen/frag_button_width"
+        android:layout_width="@dimen/frag_walkthrough_button_width"
         android:layout_height="wrap_content"
         android:layout_marginBottom="52dp"
         android:backgroundTint="@color/accent"

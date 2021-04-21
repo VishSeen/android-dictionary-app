@@ -6,60 +6,190 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TranslationFragment">
 
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/back_translated"
-        android:ems="10"
-        android:fontFamily="@font/poppins_medium"
-        android:gravity="start|top"
-        android:hint="@string/frag_translation_edt_hint_txt"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:padding="16dp"
-        android:textColor="@color/white_text_primary"
-        android:textColorHint="@color/white_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="@string/frag_translation_txt_translated"
-        android:textColor="@color/blue_text_secondary"
-        android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="252dp" />
+        app:layout_constraintGuide_percent="0.46" />
 
-    <TextView
-        android:id="@+id/frag_translation_txt_translated"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_regular"
-        android:textColor="@color/blue_text_primary"
-        android:textSize="16sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/back_translation_spinner"
+            android:entries="@array/reply_entries"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="8dp"
+            android:popupBackground="@color/blue_light"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/blue_text_primary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/img_btn_padding"
+            android:src="@drawable/ic_compare_translate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/back_translation_spinner"
+            android:entries="@array/reply_entries"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="8dp"
+            android:popupBackground="@color/blue_light"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/blue_text_primary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/back_translation"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+        <EditText
+            android:id="@+id/frag_translation_edt_translation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@android:color/transparent"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="start|top"
+            android:hint="@string/frag_translation_edt_hint_txt"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textAlignment="viewStart"
+            android:textColor="@color/blue_text_primary"
+            android:textColorHint="@color/black_text_secondary"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/frag_translation_part_translation_btn_speak"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/frag_translation_part_translation_btn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/img_btn_padding"
+            android:src="@drawable/ic_camera_24"
+            android:tint="@color/blue_text_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/frag_translation_part_translation_btn_speak" />
+
+        <ImageButton
+            android:id="@+id/frag_translation_part_translation_btn_speak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/img_btn_padding"
+            android:src="@drawable/ic_volume_up_24"
+            android:tint="@color/blue_text_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="104dp"
+        android:background="@drawable/back_translated"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <TextView
+            android:id="@+id/frag_translation_txt_translated"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/frag_translation_txt_translated"
+            android:textColor="@color/blue_text_primary"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/frag_translation_part_translated_btn_speak"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/frag_translation_part_translated_btn_speak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="@dimen/img_btn_padding"
+            android:src="@drawable/ic_volume_up_24"
+            android:tint="@color/blue_text_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

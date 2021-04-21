@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_light"
     tools:context=".DefinitionActivity">
 
     <TextView
@@ -74,11 +75,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/back_definition_white_container"
+                android:elevation="2dp">
 
                 <TextView
                     android:id="@+id/textView6"
@@ -88,7 +95,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="@string/act_definitions_txt_definition"
-                    android:textColor="@color/blue_text_secondary"
+                    android:textColor="@color/blue_text_primary"
                     android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -99,25 +106,37 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/blue_text_primary"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/back_definition_white_container"
+                android:elevation="2dp">
 
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="NOUN"
-                    android:textColor="@color/blue_text_secondary"
+                    android:textColor="@color/blue_text_primary"
                     android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/act_definition_txt_definition" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/act_definition_txt_nouns"
@@ -125,9 +144,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/blue_text_primary"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"

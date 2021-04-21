@@ -1,6 +1,6 @@
 package com.vish.apps.dictionary;
 
-import android.content.DialogInterface;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,28 +8,28 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
+import android.speech.RecognizerIntent;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vish.apps.dictionary.adapters.ViewPagerAdapter;
-import com.vish.apps.dictionary.util.OxfordRequests;
+import com.vish.apps.dictionary.util.Oxford;
 import com.vish.apps.dictionary.util.Word;
 
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = DefinitionActivity.class.getName();
+    private final int REQ_CODE = 100;
     private ViewPagerAdapter viewPagerAdapter;
     private BottomNavigationView bottomNavView;
-    private EditText edtSearch;
     public String url;
 
     @Override
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initializing views
         ImageButton btnSettings = (ImageButton) findViewById(R.id.act_main_img_btn_settings);
-        edtSearch = (EditText) findViewById(R.id.act_main_edt_search);
         ViewPager2 viewPager = (ViewPager2) findViewById(R.id.act_main_viewpager);
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -93,25 +92,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        edtSearch.setOnKeyListener(new View.OnKeyListener()
-        {
-            public boolean onKey(View view, int keyCode, KeyEvent event)
-            {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
-                {
-                    switch (keyCode)
-                    {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            searchWordClick(view);
-                            return true;
-                        default:
-                            break;
-                    }
-                }
-                return false;
-            }
-        });
     }
 
     private String definitionEntries(String wordSearch) {
@@ -124,36 +104,53 @@ public class MainActivity extends AppCompatActivity {
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 
+
     public void searchWordClick(View v) {
-        String edtText = edtSearch.getText().toString();
-
-        Word searchedWord = new Word(01, edtText, "Loading...");
-        url = definitionEntries(edtText);
-        OxfordRequests oxfordRequests = new OxfordRequests(searchedWord);
-        oxfordRequests.execute(url);
-
-
-//        Log.d(TAG, "searchWordClick: Str results " + oxfordRequests.getResultDef());
-
-        Intent intent = new Intent(this, DefinitionActivity.class);
-        intent.putExtra("Title", searchedWord.getTitle());
-        intent.putExtra("Definition", searchedWord.getDefinition());
-        startActivity(intent);
+        getSearchText();
     }
 
-    public String getResults() {
-        String edtText = edtSearch.getText().toString();
+    public void getSearchText() {
+//        String edtText = edtSearch.getText().toString();
+//
+//        Word searchedWord = new Word(01, edtText, "Loading...");
+//        url = definitionEntries(edtText);
+//        Oxford oxford = new Oxford();
+//        oxford.execute(url);
+//
+//        Intent intent = new Intent(this, DefinitionActivity.class);
+//        intent.putExtra("Title", searchedWord.getTitle());
+//        intent.putExtra("Definition", searchedWord.getDefinition());
+//        startActivity(intent);
+    }
 
-        Word searchedWord = new Word(01, edtText, "Loading...");
-        url = definitionEntries(edtText);
 
+    public void fabSpeechClick(View view) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Need to speak");
         try {
-            return new OxfordRequests(searchedWord).execute(url).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            startActivityForResult(intent, REQ_CODE);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "Sorry your device not supported",
+                    Toast.LENGTH_SHORT).show();
         }
-        return "Complete";
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQ_CODE: {
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+//                    edtSearch.setText(result.get(0).toString());
+                    getSearchText();
+                }
+                break;
+            }
+        }
     }
 }
