@@ -62,6 +62,8 @@
 
     <!-- Definition Fragment -->
     <string name="frag_definition_txt_all_words">TOUS LES MOTS</string>
+    <string name="frag_definition_txt_definition_loading">Chargement des définitions ...</string>
+
 
     <!-- Translation Fragment -->
     <string name="frag_translation_edt_hint_txt">Entrez le texte ici..</string>

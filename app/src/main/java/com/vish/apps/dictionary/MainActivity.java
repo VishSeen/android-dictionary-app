@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vish.apps.dictionary.adapters.ViewPagerAdapter;
+import com.vish.apps.dictionary.fragments.DefinitionFragment;
 import com.vish.apps.dictionary.util.Oxford;
 import com.vish.apps.dictionary.util.Word;
 
@@ -104,26 +105,6 @@ public class MainActivity extends AppCompatActivity {
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 
-
-    public void searchWordClick(View v) {
-        getSearchText();
-    }
-
-    public void getSearchText() {
-//        String edtText = edtSearch.getText().toString();
-//
-//        Word searchedWord = new Word(01, edtText, "Loading...");
-//        url = definitionEntries(edtText);
-//        Oxford oxford = new Oxford();
-//        oxford.execute(url);
-//
-//        Intent intent = new Intent(this, DefinitionActivity.class);
-//        intent.putExtra("Title", searchedWord.getTitle());
-//        intent.putExtra("Definition", searchedWord.getDefinition());
-//        startActivity(intent);
-    }
-
-
     public void fabSpeechClick(View view) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -146,8 +127,11 @@ public class MainActivity extends AppCompatActivity {
             case REQ_CODE: {
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-//                    edtSearch.setText(result.get(0).toString());
-                    getSearchText();
+                    String speechText = result.get(0).toString();
+
+
+//                    DefinitionFragment definitionFragment = new DefinitionFragment();
+//                    definitionFragment.searchWord(result.get(0).toString());
                 }
                 break;
             }

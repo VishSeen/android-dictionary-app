@@ -13,27 +13,27 @@
 
     <!-- Words to get definitions -->
     <string-array name="default_words">
-        <item>Fourmis</item>
-        <item>Tantine</item>
-        <item>Enfant</item>
+        <item>Fourmi</item>
+        <item>Tante</item>
+        <item>Bébé</item>
         <item>Banane</item>
         <item>Voiture</item>
         <item>Chat</item>
         <item>Sale</item>
         <item>Chien</item>
-        <item>Doom</item>
+        <item>Perte</item>
         <item>Manger</item>
         <item>Oreille</item>
         <item>Exclure</item>
         <item>Bonjour</item>
-        <item>Endans</item>
-        <item>Kangaroo</item>
+        <item>Intérieur</item>
+        <item>Kangourou</item>
         <item>Kart</item>
-        <item>Joke</item>
+        <item>Blague</item>
         <item>Journey</item>
-        <item>June</item>
-        <item>Lake</item>
-        <item>Lobster</item>
+        <item>Voyage</item>
+        <item>Lac</item>
+        <item>Homard</item>
         <item>Long</item>
     </string-array>
 </resources>
