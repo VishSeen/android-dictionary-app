@@ -1,10 +1,12 @@
 package com.vish.apps.dictionary.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.speech.tts.TextToSpeech;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.vish.apps.dictionary.R;
+import com.vish.apps.dictionary.util.Word;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.Locale;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,6 +99,29 @@ public class TranslationFragment extends Fragment {
         txtTranslated = view.findViewById(R.id.frag_translation_txt_translated);
         btnTranslatedSpeak = view.findViewById(R.id.frag_translation_part_translated_btn_speak);
 
+        edtTranslation.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+
+                if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    // backspace event
+                    if (edtTranslation.getText().length() == 0) {
+
+                    }
+                }
+                return false;
+            }
+        });
+
         btnTranslationSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,5 +156,87 @@ public class TranslationFragment extends Fragment {
             textToSpeech.shutdown();
         }
         super.onPause();
+    }
+
+
+    private String translationEntries(String wordSearch, String language) {
+        final String word = wordSearch;
+        final String fields = "translations"; // can add etymologies or nouns here
+        final String strictMatch = "false";
+        final String word_id = word.toLowerCase();
+
+        return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
+    }
+
+
+
+    private class OxfordTranslate extends AsyncTask<String, Integer, String> {
+        private Word word;
+
+        public OxfordTranslate(Word wordPre) {
+            word = wordPre;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // replace with app id and app key
+            final String app_id = "dd74a1c2";
+            final String app_key = "6d767e1897c9cdf435102dcf0d77ad47";
+
+            try {
+                URL url = new URL(params[0]);
+                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("Accept","application/json");
+                urlConnection.setRequestProperty("app_id",app_id);
+                urlConnection.setRequestProperty("app_key",app_key);
+
+                // read the output from the server
+                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line + "\n");
+                }
+                return stringBuilder.toString();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("ERROR HERE : ");
+                return e.toString();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            String title;
+            String definition;
+            String example;
+            String synonyms;
+            String etymology;
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray resultsArray = jsonObject.getJSONArray("results");
+
+                JSONObject lEntries = resultsArray.getJSONObject(0);
+                JSONArray lArray = lEntries.getJSONArray("lexicalEntries");
+
+                JSONObject entriesObj = lArray.getJSONObject(0);
+                JSONArray entriesArray = entriesObj.getJSONArray("entries");
+
+                JSONObject sensesObj = entriesArray.getJSONObject(0);
+                JSONArray sensesArray = sensesObj.getJSONArray("senses");
+
+                JSONObject defObj = sensesArray.getJSONObject(0);
+                JSONArray defArray = defObj.getJSONArray("definitions");
+                definition = defArray.getString(0);
+
+                word.setDefinition(definition);
+            } catch (Exception e) {
+
+            }
+        }
     }
 }

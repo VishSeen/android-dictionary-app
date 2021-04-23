@@ -201,7 +201,6 @@ public class DefinitionFragment extends Fragment {
 
 
 
-
     private class OxfordDefinition extends AsyncTask<String, Integer, String> {
         private Word word;
 
