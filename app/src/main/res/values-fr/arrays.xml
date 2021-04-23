@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Reply Preference -->
     <string-array name="reply_entries">
@@ -10,23 +11,22 @@
         <item>reply_all</item>
     </string-array>
 
-
     <!-- Words to get definitions -->
     <string-array name="default_words">
-        <item>Ant</item>
-        <item>Aunt</item>
-        <item>Baby</item>
-        <item>Banana</item>
-        <item>Car</item>
-        <item>Cat</item>
-        <item>Dirty</item>
-        <item>Dog</item>
+        <item>Fourmis</item>
+        <item>Tantine</item>
+        <item>Enfant</item>
+        <item>Banane</item>
+        <item>Voiture</item>
+        <item>Chat</item>
+        <item>Sale</item>
+        <item>Chien</item>
         <item>Doom</item>
-        <item>Eat</item>
-        <item>Ear</item>
-        <item>Exclude</item>
-        <item>Hello</item>
-        <item>Inner</item>
+        <item>Manger</item>
+        <item>Oreille</item>
+        <item>Exclure</item>
+        <item>Bonjour</item>
+        <item>Endans</item>
         <item>Kangaroo</item>
         <item>Kart</item>
         <item>Joke</item>

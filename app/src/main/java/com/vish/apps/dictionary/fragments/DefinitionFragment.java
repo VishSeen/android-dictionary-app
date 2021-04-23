@@ -1,6 +1,7 @@
 package com.vish.apps.dictionary.fragments;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,7 +38,10 @@ public class DefinitionFragment extends Fragment {
     private DefinitionsListAdapter adapter;
     private List<Word> mListWords;
     private String url;
-    private String[] predefinedWords= {"Ant", "Aunt", "Baby", "Banana", "Car", "Cat", "Dirty", "Dog", "Doom", "Eat", "Ear", "Exclude", "Hello", "In", "Inner", "Kangaroo", "Kart", "Joke", "Journey", "June", "Lake", "Lobster", "Long"};
+
+    private Resources mResources;
+    private String[] predefinedWords;
+//    private String[] predefinedWords= {"Ant", "Aunt", "Baby", "Banana", "Car", "Cat", "Dirty", "Dog", "Doom", "Eat", "Ear", "Exclude", "Hello", "In", "Inner", "Kangaroo", "Kart", "Joke", "Journey", "June", "Lake", "Lobster", "Long"};
     private ListView listView;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,11 +54,14 @@ public class DefinitionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mListWords = new ArrayList<>();
+        mResources = getResources();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_definition, container, false);
+
+        predefinedWords = mResources.getStringArray(R.array.default_words);
 
         edtSearch = view.findViewById(R.id.act_main_edt_search);
         adapter = new DefinitionsListAdapter(getContext(), mListWords);
@@ -135,7 +142,7 @@ public class DefinitionFragment extends Fragment {
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 
-    private String urlEntries(String wordSearch, String language) {
+    private String urlDefinition(String wordSearch, String language) {
         final String word = wordSearch;
         final String fields = "definitions"; // can add etymologies or nouns here
         final String strictMatch = "false";
