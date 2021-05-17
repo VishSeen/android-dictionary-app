@@ -52,11 +52,11 @@ public class Word {
     public void setDefinition(String definition) {
         mDefinition = definition;
     }
-    public String setExample() {
-        return mExample;
+    public void setExample(String example) {
+        mExample = example;
     }
-    public String setSynonyms() {
-        return mSynonyms;
+    public void setSynonyms(String synonyms) {
+        mSynonyms = synonyms;
     }
     public void setEtymology(String etymology) {
         mEtymology = etymology;

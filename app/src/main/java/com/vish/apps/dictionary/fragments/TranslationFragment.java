@@ -3,17 +3,29 @@ package com.vish.apps.dictionary.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.nl.translate.TranslateLanguage;
+import com.google.mlkit.nl.translate.Translation;
+import com.google.mlkit.nl.translate.Translator;
+import com.google.mlkit.nl.translate.TranslatorOptions;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.util.Word;
 
@@ -28,6 +40,8 @@ import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TranslationFragment#newInstance} factory method to
@@ -38,10 +52,12 @@ public class TranslationFragment extends Fragment {
 
     private TextToSpeech textToSpeech;
     private final int SPEECH_TITLE_LENGTH = 1800;
+    private Spinner spinnerFrom;
+    private Spinner spinnerTo;
     private EditText edtTranslation;
-    private ImageButton btnTranslationSpeak;
     private TextView txtTranslated;
-    private ImageButton btnTranslatedSpeak;
+    private String translateFrom;
+    private String translateTo;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,6 +101,7 @@ public class TranslationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_translation, container, false);
 
+        // create TTS and set language to default device
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -94,10 +111,43 @@ public class TranslationFragment extends Fragment {
             }
         });
 
+        // getting views
+        spinnerFrom = view.findViewById(R.id.frag_translation_spinner_to_translate);
+        spinnerTo = view.findViewById(R.id.frag_translation_spinner_translated);
         edtTranslation = view.findViewById(R.id.frag_translation_edt_translation);
-        btnTranslationSpeak = view.findViewById(R.id.frag_translation_part_translation_btn_speak);
+        ImageButton btnTranslationSpeak = view.findViewById(R.id.frag_translation_part_translation_btn_speak);
         txtTranslated = view.findViewById(R.id.frag_translation_txt_translated);
-        btnTranslatedSpeak = view.findViewById(R.id.frag_translation_part_translated_btn_speak);
+        ImageButton btnTranslatedSpeak = view.findViewById(R.id.frag_translation_part_translated_btn_speak);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.array_translate_language, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinnerFrom.setAdapter(adapter);
+
+        spinnerFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                Log.v("Spinner selected : ", (String) parent.getItemAtPosition(position));
+                switch (position) {
+                    case 0:
+                        translateTo = "fr";
+                        break;
+                    case 1:
+                        translateTo = "en-gb";
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
 
         edtTranslation.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -105,7 +155,7 @@ public class TranslationFragment extends Fragment {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-
+                            // translate here
                             return true;
                         default:
                             break;
@@ -158,15 +208,6 @@ public class TranslationFragment extends Fragment {
         super.onPause();
     }
 
-
-    private String translationEntries(String wordSearch, String language) {
-        final String word = wordSearch;
-        final String fields = "translations"; // can add etymologies or nouns here
-        final String strictMatch = "false";
-        final String word_id = word.toLowerCase();
-
-        return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
-    }
 
 
 

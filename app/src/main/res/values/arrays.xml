@@ -1,13 +1,8 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
-    </string-array>
-
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <!-- Language array -->
+    <string-array name="array_translate_language">
+        <item>English</item>
+        <item>French</item>
     </string-array>
 
 

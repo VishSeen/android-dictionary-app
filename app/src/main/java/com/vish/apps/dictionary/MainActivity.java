@@ -9,19 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.speech.RecognizerIntent;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vish.apps.dictionary.adapters.ViewPagerAdapter;
 import com.vish.apps.dictionary.fragments.DefinitionFragment;
-import com.vish.apps.dictionary.util.Oxford;
-import com.vish.apps.dictionary.util.Word;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -129,9 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String speechText = result.get(0).toString();
 
-
-//                    DefinitionFragment definitionFragment = new DefinitionFragment();
-//                    definitionFragment.searchWord(result.get(0).toString());
+                    DefinitionFragment definitionFragment = new DefinitionFragment();
+                    definitionFragment.searchWord(speechText);
                 }
                 break;
             }

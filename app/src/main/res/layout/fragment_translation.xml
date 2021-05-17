@@ -24,12 +24,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/frag_translation_spinner_to_translate"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/back_translation_spinner"
-            android:entries="@array/reply_entries"
+            android:entries="@array/array_translate_language"
             android:fontFamily="@font/poppins_medium"
             android:padding="8dp"
             android:popupBackground="@color/blue_light"
@@ -60,12 +60,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/frag_translation_spinner_translated"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/back_translation_spinner"
-            android:entries="@array/reply_entries"
+            android:clickable="false"
+            android:entries="@array/array_translate_language"
             android:fontFamily="@font/poppins_medium"
             android:padding="8dp"
             android:popupBackground="@color/blue_light"
@@ -127,6 +128,7 @@
             android:padding="@dimen/img_btn_padding"
             android:src="@drawable/ic_camera_24"
             android:tint="@color/blue_text_primary"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/frag_translation_part_translation_btn_speak" />
 

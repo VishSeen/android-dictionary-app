@@ -7,10 +7,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.provider.Settings;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,28 +19,22 @@ import android.widget.ListView;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
-import com.vish.apps.dictionary.util.Oxford;
 import com.vish.apps.dictionary.util.Word;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
-import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.net.ssl.HttpsURLConnection;
+import static android.content.ContentValues.TAG;
 
 /**
  * A fragment representing a list of Items.
@@ -97,8 +87,6 @@ public class DefinitionFragment extends Fragment {
             deviceLanguage = "fr";
         }
 
-        System.out.println("DEVICE : " + deviceLanguage);
-
         String[] predefinedWords = mResources.getStringArray(R.array.default_words);
 
         edtSearch = view.findViewById(R.id.act_main_edt_search);
@@ -122,11 +110,12 @@ public class DefinitionFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word currentWord = (Word) adapterView.getItemAtPosition(i);
 
+
                 Intent intent = new Intent(getActivity(), DefinitionActivity.class);
                 intent.putExtra("Title", currentWord.getTitle());
                 intent.putExtra("Definition", currentWord.getDefinition());
                 intent.putExtra("Etymology", currentWord.getEtymology());
-                intent.putExtra("Example", currentWord.getExample());
+                intent.putExtra("Examples", currentWord.getExample());
                 intent.putExtra("Synonyms", currentWord.getSynonyms());
                 startActivity(intent);
             }
@@ -191,10 +180,9 @@ public class DefinitionFragment extends Fragment {
 
 
     private String definitionEntries(String wordSearch, String language) {
-        final String word = wordSearch;
-        final String fields = "definitions"; // can add etymologies or nouns here
+        final String fields = "definitions%2Cetymologies%2Cexamples"; // can add etymologies or nouns here
         final String strictMatch = "false";
-        final String word_id = word.toLowerCase();
+        final String word_id = wordSearch.toLowerCase();
 
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
@@ -243,10 +231,11 @@ public class DefinitionFragment extends Fragment {
             super.onPostExecute(result);
             String title;
             String definition;
-            String example;
+            String examples;
             String synonyms;
             String etymology;
 
+            Log.d(TAG, "onPostExecute: RESULT JSON" + result);
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray resultsArray = jsonObject.getJSONArray("results");
@@ -257,14 +246,26 @@ public class DefinitionFragment extends Fragment {
                 JSONObject entriesObj = lArray.getJSONObject(0);
                 JSONArray entriesArray = entriesObj.getJSONArray("entries");
 
+                JSONObject etyObj = entriesArray.getJSONObject(0);
+                JSONArray etyArray = etyObj.getJSONArray("etymologies");
+                etymology = etyArray.getString(0);
+                word.setEtymology(etymology);
+
+
                 JSONObject sensesObj = entriesArray.getJSONObject(0);
                 JSONArray sensesArray = sensesObj.getJSONArray("senses");
 
                 JSONObject defObj = sensesArray.getJSONObject(0);
                 JSONArray defArray = defObj.getJSONArray("definitions");
                 definition = defArray.getString(0);
-
                 word.setDefinition(definition);
+
+                JSONObject exObj = sensesArray.getJSONObject(1);
+                JSONArray exArray = exObj.getJSONArray("examples");
+                JSONObject txtObj = exArray.getJSONObject(0);
+
+                examples = txtObj.getString("text");
+                word.setExample(examples);
             } catch (Exception e) {
 
             }
