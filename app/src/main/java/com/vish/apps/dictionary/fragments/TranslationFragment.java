@@ -1,11 +1,13 @@
 package com.vish.apps.dictionary.fragments;
 
-import android.os.AsyncTask;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.StrictMode;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -20,27 +22,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.mlkit.nl.translate.TranslateLanguage;
-import com.google.mlkit.nl.translate.Translation;
-import com.google.mlkit.nl.translate.Translator;
-import com.google.mlkit.nl.translate.TranslatorOptions;
+import androidx.lifecycle.ViewModelProviders;
+
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.vish.apps.dictionary.R;
-import com.vish.apps.dictionary.util.Word;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.Locale;
 
-import javax.net.ssl.HttpsURLConnection;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,15 +43,21 @@ import static android.content.ContentValues.TAG;
  */
 public class TranslationFragment extends Fragment {
 
-
     private TextToSpeech textToSpeech;
     private final int SPEECH_TITLE_LENGTH = 1800;
+
     private Spinner spinnerFrom;
     private Spinner spinnerTo;
+
     private EditText edtTranslation;
     private TextView txtTranslated;
+
     private String translateFrom;
     private String translateTo;
+
+    private boolean connected;
+    private Translate translate;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -101,6 +101,7 @@ public class TranslationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_translation, container, false);
 
+
         // create TTS and set language to default device
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -140,6 +141,9 @@ public class TranslationFragment extends Fragment {
                     case 1:
                         translateTo = "en-gb";
                         break;
+                    case 2:
+                        translateTo = "es";
+                        break;
                 }
             }
 
@@ -155,7 +159,16 @@ public class TranslationFragment extends Fragment {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-                            // translate here
+                            Test(edtTranslation.getText().toString());
+                            if (checkInternetConnection()) {
+                                //If there is internet connection, get translate service and start translation:
+                                getTranslateService();
+                                translate( edtTranslation.getText().toString());
+
+                            } else {
+                                //If not, display "no connection" warning:
+                                txtTranslated.setText(getResources().getString(R.string.frag_translation_txt_connec_error));
+                            }
                             return true;
                         default:
                             break;
@@ -165,7 +178,6 @@ public class TranslationFragment extends Fragment {
                 if(keyCode == KeyEvent.KEYCODE_DEL) {
                     // backspace event
                     if (edtTranslation.getText().length() == 0) {
-
                     }
                 }
                 return false;
@@ -208,76 +220,58 @@ public class TranslationFragment extends Fragment {
         super.onPause();
     }
 
+    public void Test(String text) {
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+    }
 
 
+    public void translate (String text) {
 
-    private class OxfordTranslate extends AsyncTask<String, Integer, String> {
-        private Word word;
+        //Get input text to be translated:
+        translateFrom = text;
+        Translation translation = translate.translate(translateFrom, Translate.TranslateOption.targetLanguage("fr"), Translate.TranslateOption.model("base"));
+        translateTo = translation.getTranslatedText();
 
-        public OxfordTranslate(Word wordPre) {
-            word = wordPre;
-        }
+        //Translated text and original text are set to TextViews:
+        txtTranslated.setText(translateTo);
 
-        @Override
-        protected String doInBackground(String... params) {
-            // replace with app id and app key
-            final String app_id = "dd74a1c2";
-            final String app_key = "6d767e1897c9cdf435102dcf0d77ad47";
+    }
 
-            try {
-                URL url = new URL(params[0]);
-                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("Accept","application/json");
-                urlConnection.setRequestProperty("app_id",app_id);
-                urlConnection.setRequestProperty("app_key",app_key);
 
-                // read the output from the server
-                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder stringBuilder = new StringBuilder();
+    public boolean checkInternetConnection() {
 
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line + "\n");
-                }
-                return stringBuilder.toString();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("ERROR HERE : ");
-                return e.toString();
-            }
-        }
+        //Check internet connection:
+        ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            String title;
-            String definition;
-            String example;
-            String synonyms;
-            String etymology;
+        //Means that we are connected to a network (mobile or wi-fi)
+        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray resultsArray = jsonObject.getJSONArray("results");
+        return connected;
+    }
 
-                JSONObject lEntries = resultsArray.getJSONObject(0);
-                JSONArray lArray = lEntries.getJSONArray("lexicalEntries");
 
-                JSONObject entriesObj = lArray.getJSONObject(0);
-                JSONArray entriesArray = entriesObj.getJSONArray("entries");
+    public void getTranslateService() {
 
-                JSONObject sensesObj = entriesArray.getJSONObject(0);
-                JSONArray sensesArray = sensesObj.getJSONArray("senses");
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-                JSONObject defObj = sensesArray.getJSONObject(0);
-                JSONArray defArray = defObj.getJSONArray("definitions");
-                definition = defArray.getString(0);
+        try (InputStream is = getResources().openRawResource(R.raw.credentials)) {
 
-                word.setDefinition(definition);
-            } catch (Exception e) {
+            //Get credentials:
+            final GoogleCredentials myCredentials = GoogleCredentials.fromStream(is);
 
-            }
+            //Set credentials and get translate service:
+            TranslateOptions translateOptions = TranslateOptions.newBuilder().setCredentials(myCredentials).build();
+            translate = translateOptions.getService();
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+
         }
     }
+
+
+
+
 }

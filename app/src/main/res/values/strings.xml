@@ -72,5 +72,7 @@
     <string name="frag_translation_edt_hint_txt">Enter text here..</string>
     <string name="frag_translation_txt_translated">Translated text here..</string>
     <string name="frag_translation_txt_error">Sorry no text was entered..</string>
+    <string name="frag_translation_txt_connec_error">No internet connection was found...</string>
+
 
 </resources>

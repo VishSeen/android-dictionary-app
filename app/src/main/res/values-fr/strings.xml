@@ -69,4 +69,5 @@
     <string name="frag_translation_edt_hint_txt">Entrez le texte ici..</string>
     <string name="frag_translation_txt_translated">Texte traduite ici..</string>
     <string name="frag_translation_txt_error">Désolé, aucun texte n\'a été saisi.</string>
+    <string name="frag_translation_txt_connec_error">Aucune connexion Internet n\'a été trouvée ...</string>
 </resources>

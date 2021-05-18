@@ -235,7 +235,6 @@ public class DefinitionFragment extends Fragment {
             String synonyms;
             String etymology;
 
-            Log.d(TAG, "onPostExecute: RESULT JSON" + result);
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONArray resultsArray = jsonObject.getJSONArray("results");
