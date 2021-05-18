@@ -54,6 +54,8 @@ public class TranslationFragment extends Fragment {
 
     private String translateFrom;
     private String translateTo;
+    private String mLanguage;
+    private String mLanguageTranslatedSpeech;
 
     private boolean connected;
     private Translate translate;
@@ -120,14 +122,12 @@ public class TranslationFragment extends Fragment {
         txtTranslated = view.findViewById(R.id.frag_translation_txt_translated);
         ImageButton btnTranslatedSpeak = view.findViewById(R.id.frag_translation_part_translated_btn_speak);
 
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.array_translate_language, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTo.setAdapter(adapter);
 
-        // Apply the adapter to the spinner
-        spinnerFrom.setAdapter(adapter);
 
         spinnerFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -136,13 +136,39 @@ public class TranslationFragment extends Fragment {
                 Log.v("Spinner selected : ", (String) parent.getItemAtPosition(position));
                 switch (position) {
                     case 0:
-                        translateTo = "fr";
+                        Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+        spinnerTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                Log.v("Spinner selected : ", (String) parent.getItemAtPosition(position));
+                switch (position) {
+                    case 0:
+                        Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        translateTo = "en-gb";
+                        mLanguage = "en";
                         break;
                     case 2:
-                        translateTo = "es";
+                        mLanguage = "fr";
+                        break;
+                    case 3:
+                        mLanguage = "es";
+                        break;
+                    case 4:
+                        mLanguage = "de";
+                        break;
+                    case 5:
+                        mLanguage = "ht";
                         break;
                 }
             }
@@ -159,11 +185,10 @@ public class TranslationFragment extends Fragment {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-                            Test(edtTranslation.getText().toString());
                             if (checkInternetConnection()) {
                                 //If there is internet connection, get translate service and start translation:
                                 getTranslateService();
-                                translate( edtTranslation.getText().toString());
+                                translate(edtTranslation.getText().toString(), mLanguage);
 
                             } else {
                                 //If not, display "no connection" warning:
@@ -220,16 +245,12 @@ public class TranslationFragment extends Fragment {
         super.onPause();
     }
 
-    public void Test(String text) {
-        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
-    }
 
 
-    public void translate (String text) {
-
+    public void translate (String text, String language) {
         //Get input text to be translated:
         translateFrom = text;
-        Translation translation = translate.translate(translateFrom, Translate.TranslateOption.targetLanguage("fr"), Translate.TranslateOption.model("base"));
+        Translation translation = translate.translate(translateFrom, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
         translateTo = translation.getTranslatedText();
 
         //Translated text and original text are set to TextViews:
@@ -238,8 +259,8 @@ public class TranslationFragment extends Fragment {
     }
 
 
-    public boolean checkInternetConnection() {
 
+    public boolean checkInternetConnection() {
         //Check internet connection:
         ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -252,7 +273,6 @@ public class TranslationFragment extends Fragment {
 
 
     public void getTranslateService() {
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

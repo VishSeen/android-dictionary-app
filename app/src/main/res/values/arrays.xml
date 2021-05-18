@@ -1,9 +1,15 @@
 <resources>
     <!-- Language array -->
+    <string-array name="array_translate_language_auto">
+        <item>Auto</item>
+    </string-array>
+
     <string-array name="array_translate_language">
+        <item>Choose</item>
         <item>English</item>
         <item>French</item>
         <item>Spanish</item>
+        <item>German</item>
         <item>Creol</item>
     </string-array>
 
@@ -16,7 +22,6 @@
         <item>Banana</item>
         <item>Car</item>
         <item>Cat</item>
-        <item>Dirty</item>
         <item>Dog</item>
         <item>Doom</item>
         <item>Eat</item>
