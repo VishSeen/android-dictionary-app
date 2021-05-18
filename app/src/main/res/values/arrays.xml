@@ -3,6 +3,8 @@
     <string-array name="array_translate_language">
         <item>English</item>
         <item>French</item>
+        <item>Spanish</item>
+        <item>Creol</item>
     </string-array>
 
 

@@ -4,6 +4,8 @@
     <string-array name="array_translate_language">
         <item>Anglais</item>
         <item>Français</item>
+        <item>Espagnol</item>
+        <item>Creole</item>
     </string-array>
 
     <!-- Words to get definitions -->
