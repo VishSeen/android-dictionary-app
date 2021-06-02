@@ -19,7 +19,6 @@
     <string name="menu_act_main_txt_settings">Settings</string>
 
 
-
     <!--================ ACTIVITIES ==================-->
     <!-- Main Activity -->
     <string name="act_main_search_txt">Search word..</string>
@@ -46,7 +45,6 @@
     <string name="act_settings_txt_list_how">How to use</string>
     <string name="act_settings_txt_list_feedback">Feedback</string>
     <string name="act_settings_txt_list_about">About us</string>
-
 
 
     <!--================ FRAGMENT ==================-->

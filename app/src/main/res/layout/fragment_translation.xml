@@ -17,30 +17,10 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/frag_translation_spinner_to_translate"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/back_translation_spinner"
-            android:entries="@array/array_translate_language_auto"
-            android:fontFamily="@font/poppins_medium"
-            android:padding="8dp"
-            android:popupBackground="@color/blue_light"
-            android:spinnerMode="dropdown"
-            android:textColor="@color/blue_text_primary"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButton" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -59,25 +39,72 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/frag_translation_spinner_translated"
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/back_translation_spinner"
-            android:clickable="false"
-            android:entries="@array/array_translate_language"
-            android:fontFamily="@font/poppins_medium"
-            android:padding="8dp"
-            android:popupBackground="@color/blue_light"
-            android:spinnerMode="dropdown"
-            android:textColor="@color/blue_text_primary"
-            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageButton">
+
+            <Spinner
+                android:id="@+id/frag_translation_spinner_to_translate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:entries="@array/array_translate_language_auto"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="8dp"
+                android:popupBackground="@color/blue_light"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/blue_text_primary"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/back_translation_spinner"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/imageButton"
-            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+            app:layout_constraintTop_toTopOf="@+id/imageButton">
+
+            <Spinner
+                android:id="@+id/frag_translation_spinner_translated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="false"
+                android:entries="@array/array_translate_language"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="8dp"
+                android:popupBackground="@color/blue_light"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/blue_text_primary"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

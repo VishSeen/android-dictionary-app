@@ -1,9 +1,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item>
-
         <layer-list>
-
             <item>
                 <color
                     android:color="@android:color/white"/>
@@ -14,9 +11,6 @@
                     android:gravity="center_vertical|right"
                     android:src="@drawable/ic_arrow_down"/>
             </item>
-
         </layer-list>
-
     </item>
-
 </selector>

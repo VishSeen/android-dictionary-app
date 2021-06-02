@@ -39,13 +39,39 @@ tools:context=".fragments.TranslationFragment">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/frag_definition_txt_all_words"
         android:textColor="@color/blue_text_secondary"
         android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/act_main_edt_search" />
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/back_translation_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6">
+
+        <Spinner
+            android:id="@+id/frag_translation_spinner_translated"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:clickable="false"
+            android:entries="@array/array_translate_language"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="8dp"
+            android:popupBackground="@color/blue_light"
+            android:spinnerMode="dropdown"
+            android:textColor="@color/blue_text_primary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/frag_definition_listview"
@@ -53,8 +79,10 @@ tools:context=".fragments.TranslationFragment">
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+        app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/list_dictionary">
 
     </ListView>
@@ -71,4 +99,13 @@ tools:context=".fragments.TranslationFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

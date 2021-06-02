@@ -134,10 +134,8 @@ public class TranslationFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 Log.v("Spinner selected : ", (String) parent.getItemAtPosition(position));
-                switch (position) {
-                    case 0:
-                        Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
-                        break;
+                if (position == 0) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
                 }
             }
 
