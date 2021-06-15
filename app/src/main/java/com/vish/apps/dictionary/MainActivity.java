@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String speechText = result.get(0).toString();
 
+                    System.out.println("SPEECH : " + speechText);
+
                     DefinitionFragment definitionFragment = new DefinitionFragment();
                     definitionFragment.searchWord(speechText);
                 }

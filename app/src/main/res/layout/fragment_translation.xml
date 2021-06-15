@@ -156,7 +156,7 @@
             android:padding="@dimen/img_btn_padding"
             android:src="@drawable/ic_camera_24"
             android:tint="@color/blue_text_primary"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/frag_translation_part_translation_btn_speak" />
 
