@@ -57,7 +57,7 @@ tools:context=".fragments.TranslationFragment">
         app:layout_constraintTop_toTopOf="@+id/guideline6">
 
         <Spinner
-            android:id="@+id/frag_translation_spinner_translated"
+            android:id="@+id/frag_translation_spinner_change_language"
             android:layout_width="wrap_content"
             android:layout_height="37dp"
             android:clickable="false"

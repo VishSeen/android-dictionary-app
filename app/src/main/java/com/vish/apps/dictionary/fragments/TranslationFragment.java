@@ -22,8 +22,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModelProviders;
-
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
@@ -116,7 +114,7 @@ public class TranslationFragment extends Fragment {
 
         // getting views
         spinnerFrom = view.findViewById(R.id.frag_translation_spinner_to_translate);
-        spinnerTo = view.findViewById(R.id.frag_translation_spinner_translated);
+        spinnerTo = view.findViewById(R.id.frag_translation_spinner_change_language);
         edtTranslation = view.findViewById(R.id.frag_translation_edt_translation);
         ImageButton btnTranslationSpeak = view.findViewById(R.id.frag_translation_part_translation_btn_speak);
         txtTranslated = view.findViewById(R.id.frag_translation_txt_translated);

@@ -85,7 +85,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageButton">
 
             <Spinner
-                android:id="@+id/frag_translation_spinner_translated"
+                android:id="@+id/frag_translation_spinner_change_language"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

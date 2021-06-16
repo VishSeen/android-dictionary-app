@@ -1,5 +1,6 @@
 package com.vish.apps.dictionary.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -7,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
@@ -26,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
@@ -34,17 +38,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * A fragment representing a list of Items.
  */
 public class DefinitionFragment extends Fragment {
 
-    private String deviceLanguage = Locale.getDefault().toLanguageTag().toLowerCase();
+    private String mDeviceLanguage = Locale.getDefault().toString();
 
     private EditText edtSearch;
+    private Spinner spinnerLanguage;
     private DefinitionsListAdapter adapter;
+    private String[] predefinedWords;
     private List<Word> mListWords;
     private String url;
 
@@ -83,27 +87,19 @@ public class DefinitionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_definition, container, false);
 
         // change language code to match api response
-        if(deviceLanguage.equals("fr-fr")) {
-            deviceLanguage = "fr";
-        }
+        correctLanguageCode(mDeviceLanguage);
 
-        String[] predefinedWords = mResources.getStringArray(R.array.default_words);
+        predefinedWords = mResources.getStringArray(R.array.default_words);
 
         edtSearch = view.findViewById(R.id.act_main_edt_search);
+        spinnerLanguage = view.findViewById(R.id.frag_translation_spinner_change_language);
         adapter = new DefinitionsListAdapter(getContext(), mListWords);
         listView = view.findViewById(R.id.frag_definition_listview);
         listView.setAdapter(adapter);
 
         // loops through array of predefined words to find
-        for (int i = 0; i < predefinedWords.length; i++){
-            Word word = new Word(predefinedWords[i], getResources().getString(R.string.frag_definition_txt_definition_loading));
-            url = definitionEntries(predefinedWords[i], deviceLanguage);
-            new OxfordDefinition(word).execute(url);
-
-            mListDefinitions.add(word);
-        }
-
-        mListWords.addAll(mListDefinitions);
+        initWord();
+        spinnerLanguage.setSelection(1); // TODO: 16/06/2021 function to detect language and set spinner
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,7 +110,6 @@ public class DefinitionFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DefinitionActivity.class);
                 intent.putExtra("Title", currentWord.getTitle());
                 intent.putExtra("Definition", currentWord.getDefinition());
-                intent.putExtra("Etymology", currentWord.getEtymology());
                 intent.putExtra("Examples", currentWord.getExample());
                 intent.putExtra("Synonyms", currentWord.getSynonyms());
                 startActivity(intent);
@@ -149,6 +144,21 @@ public class DefinitionFragment extends Fragment {
     }
 
 
+    /**
+     * Function to initialize word.
+     * To be used with language spinner for quick refresh.
+     * */
+    private void initWord() {
+        for (int i = 0; i < predefinedWords.length; i++){
+            Word word = new Word(predefinedWords[i], getResources().getString(R.string.frag_definition_txt_definition_loading));
+            url = definitionEntries(predefinedWords[i], mDeviceLanguage);
+            new GoogleDefinition(word).execute(url);
+
+            mListDefinitions.add(word);
+        }
+
+        mListWords.addAll(mListDefinitions);
+    }
 
 
     public void searchWordClick(View v) {
@@ -162,8 +172,8 @@ public class DefinitionFragment extends Fragment {
         }
 
         Word searchedWord = new Word(toSearch, "Loading...");
-        url = definitionEntries(toSearch, deviceLanguage);
-        new OxfordDefinition(searchedWord).execute(url);
+        url = definitionEntries(toSearch, mDeviceLanguage);
+        new GoogleDefinition(searchedWord).execute(url);
 
         if(mListSearched.size() != 0) {
             mListSearched.clear();
@@ -177,51 +187,54 @@ public class DefinitionFragment extends Fragment {
     }
 
 
+    private void correctLanguageCode(String language) {
+        if(language.equals("fr_fr")) {
+            mDeviceLanguage = "fr";
+        }
+    }
 
-
-    private String definitionEntries(String wordSearch, String language) {
-        final String fields = "definitions%2Cetymologies%2Cexamples"; // can add etymologies or nouns here
-        final String strictMatch = "false";
-        final String word_id = wordSearch.toLowerCase();
-
-        return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
+    private String definitionEntries(String word, String language) {
+        final String word_id = word.toLowerCase();
+        return "https://api.dictionaryapi.dev/api/v2/entries/" + language + "/" + word;
     }
 
 
 
-    private class OxfordDefinition extends AsyncTask<String, Integer, String> {
+    /**
+     * Async for refreshing definitions of the page */
+    private class GoogleDefinition extends AsyncTask<String, Integer, String> {
         private Word word;
 
-        public OxfordDefinition(Word wordPre) {
+        public GoogleDefinition(Word wordPre) {
             word = wordPre;
         }
 
         @Override
         protected String doInBackground(String... params) {
-            // replace with app id and app key
-            final String app_id = "dd74a1c2";
-            final String app_key = "6d767e1897c9cdf435102dcf0d77ad47";
 
             try {
                 URL url = new URL(params[0]);
                 HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("Accept","application/json");
-                urlConnection.setRequestProperty("app_id",app_id);
-                urlConnection.setRequestProperty("app_key",app_key);
+                urlConnection.connect();
 
                 // read the output from the server
-                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder stringBuilder = new StringBuilder();
+                InputStream stream = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
 
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line + "\n");
+                StringBuffer buffer = new StringBuffer();
+                String line = "";
+
+                while((line = bufferedReader.readLine()) != null) {
+                    buffer.append(line + "\n");
                 }
-                return stringBuilder.toString();
+
+                return buffer.toString();
             }
             catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("ERROR HERE : ");
+                edtSearch.setText(""); // TODO: 16/06/2021 Reset listview if no words found
+
+                System.out.println("ERROR IN CONNECTION ...");
                 return e.toString();
             }
         }
@@ -233,38 +246,29 @@ public class DefinitionFragment extends Fragment {
             String definition;
             String examples;
             String synonyms;
-            String etymology;
 
             try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray resultsArray = jsonObject.getJSONArray("results");
+//                System.out.println(result);
+                // TODO: 16/06/2021 GET ALL WORDS AND EXAMPLES with ORDERED List
+                JSONArray jsonArrayRoot = new JSONArray(result);
+                JSONObject jsonObjectWord = jsonArrayRoot.getJSONObject(0);
 
-                JSONObject lEntries = resultsArray.getJSONObject(0);
-                JSONArray lArray = lEntries.getJSONArray("lexicalEntries");
+                JSONArray jsonArrayMeanings = jsonObjectWord.getJSONArray("meanings");
+                System.out.println("LENGTH : " + jsonArrayMeanings.length());
+                JSONObject jsonObjectMeanings = jsonArrayMeanings.getJSONObject(0);
 
-                JSONObject entriesObj = lArray.getJSONObject(0);
-                JSONArray entriesArray = entriesObj.getJSONArray("entries");
-
-                JSONObject etyObj = entriesArray.getJSONObject(0);
-                JSONArray etyArray = etyObj.getJSONArray("etymologies");
-                etymology = etyArray.getString(0);
-                word.setEtymology(etymology);
-
-
-                JSONObject sensesObj = entriesArray.getJSONObject(0);
-                JSONArray sensesArray = sensesObj.getJSONArray("senses");
-
-                JSONObject defObj = sensesArray.getJSONObject(0);
-                JSONArray defArray = defObj.getJSONArray("definitions");
-                definition = defArray.getString(0);
+                JSONArray jsonArrayDefinitions = jsonObjectMeanings.getJSONArray("definitions");
+                JSONObject jsonObjectDefinitions = jsonArrayDefinitions.getJSONObject(0);
+                definition = jsonObjectDefinitions.getString("definition");
                 word.setDefinition(definition);
 
-                JSONObject exObj = sensesArray.getJSONObject(1);
-                JSONArray exArray = exObj.getJSONArray("examples");
-                JSONObject txtObj = exArray.getJSONObject(0);
-
-                examples = txtObj.getString("text");
+                JSONObject jsonObjectExample = jsonArrayDefinitions.getJSONObject(0);
+                examples = jsonObjectDefinitions.getString("example");
                 word.setExample(examples);
+
+
+
+                System.out.println("EXAMPLES : " + examples);
             } catch (Exception e) {
 
             }

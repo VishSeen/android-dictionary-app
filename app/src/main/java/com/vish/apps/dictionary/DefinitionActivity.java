@@ -22,7 +22,6 @@ public class DefinitionActivity extends AppCompatActivity {
     private final int SPEECH_TITLE_LENGTH = 1800;
     private TextView txtTitle;
     private TextView txtDefinition;
-    private TextView txtEtymology;
     private TextView txtExamples;
     private ImageButton btnBack;
 
@@ -43,19 +42,16 @@ public class DefinitionActivity extends AppCompatActivity {
 
         txtTitle = (TextView) findViewById(R.id.act_definition_txt_title);
         txtDefinition = (TextView) findViewById(R.id.act_definition_txt_definition);
-        txtEtymology = (TextView) findViewById(R.id.act_definition_txt_etymology);
         txtExamples = (TextView) findViewById(R.id.act_definition_txt_examples);
 
         // get info from last activity
         Intent intent = getIntent();
         String title = intent.getStringExtra("Title");
         String definition = intent.getStringExtra("Definition");
-        String etymology = intent.getStringExtra("Etymology");
         String examples = intent.getStringExtra("Examples");
 
         txtTitle.setText(title);
         txtDefinition.setText(definition);
-        txtEtymology.setText(etymology);
 
         if(examples == null) {
             ConstraintLayout exampleLayout = (ConstraintLayout) findViewById(R.id.act_definition_layout_examples);
