@@ -1,6 +1,5 @@
 package com.vish.apps.dictionary.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -18,7 +17,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
@@ -43,7 +41,9 @@ import java.util.Locale;
  */
 public class DefinitionFragment extends Fragment {
 
+    private String mLanguage;
     private String mDeviceLanguage = Locale.getDefault().toString();
+
 
     private EditText edtSearch;
     private Spinner spinnerLanguage;
@@ -97,9 +97,9 @@ public class DefinitionFragment extends Fragment {
         listView = view.findViewById(R.id.frag_definition_listview);
         listView.setAdapter(adapter);
 
-        // loops through array of predefined words to find
-        initWord();
-        spinnerLanguage.setSelection(1); // TODO: 16/06/2021 function to detect language and set spinner
+
+        initWord(); // loops through array of predefined words
+        setSpinnerLanguage(spinnerLanguage, mLanguage); // set spinner to correct language
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -140,8 +140,62 @@ public class DefinitionFragment extends Fragment {
                 return false;
             }
         });
+
+        spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Toast.makeText(getActivity(), getResources().getString(R.string.frag_definition_spinner_error), Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        mLanguage = "en_US";
+                        break;
+                    case 2:
+                        mLanguage = "fr";
+                        Toast.makeText(getActivity(), "French", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        mLanguage = "es";
+                        Toast.makeText(getActivity(), "Spain", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        mLanguage = "de";
+                        break;
+                    case 5:
+                        mLanguage = "cr";
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // if refresh and has bundle, search word
+        getVoiceBundle();
+
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getVoiceBundle();
+    }
+
+    public void getVoiceBundle(){
+        Bundle args = getArguments();
+
+        if (args != null) {
+            CharSequence voiceResult = args.getString("word");
+            System.out.println("BUNDLE : " + args);
+//            searchWord(voiceResult);
+        }
+    }
+
 
 
     /**
@@ -149,9 +203,9 @@ public class DefinitionFragment extends Fragment {
      * To be used with language spinner for quick refresh.
      * */
     private void initWord() {
-        for (int i = 0; i < predefinedWords.length; i++){
-            Word word = new Word(predefinedWords[i], getResources().getString(R.string.frag_definition_txt_definition_loading));
-            url = definitionEntries(predefinedWords[i], mDeviceLanguage);
+        for (String predefinedWord : predefinedWords) {
+            Word word = new Word(predefinedWord, getResources().getString(R.string.frag_definition_txt_definition_loading));
+            url = definitionEntries(predefinedWord, mLanguage);
             new GoogleDefinition(word).execute(url);
 
             mListDefinitions.add(word);
@@ -172,7 +226,7 @@ public class DefinitionFragment extends Fragment {
         }
 
         Word searchedWord = new Word(toSearch, "Loading...");
-        url = definitionEntries(toSearch, mDeviceLanguage);
+        url = definitionEntries(toSearch, mLanguage);
         new GoogleDefinition(searchedWord).execute(url);
 
         if(mListSearched.size() != 0) {
@@ -187,23 +241,69 @@ public class DefinitionFragment extends Fragment {
     }
 
 
-    private void correctLanguageCode(String language) {
-        if(language.equals("fr_fr")) {
-            mDeviceLanguage = "fr";
-        }
-    }
 
-    private String definitionEntries(String word, String language) {
-        final String word_id = word.toLowerCase();
-        return "https://api.dictionaryapi.dev/api/v2/entries/" + language + "/" + word;
+    /**
+     * Load the words and add to list depending on the
+     * language selected on the spinner.
+     * */
+    private void loadWords(String language) {
+        if(mListWords.size() != 0) {
+            mListWords.clear();
+        }
+
+        // get words from room (english)
+        // translate the word
+        // add to list
+        // refresh list 
     }
 
 
 
     /**
+     * Pass device language code to process
+     * and change to the api language code
+     * @param language : pass device language
+     */
+    private void correctLanguageCode(String language) {
+        mLanguage = language.substring(0, 2);
+        
+        if(mLanguage.equals("en")) {
+            mLanguage = "en_US";
+        }
+    }
+
+
+    private void setSpinnerLanguage(Spinner spin, String language) {
+        switch (language) {
+            case "en_US":
+                spin.setSelection(1);
+                break;
+            case "fr":
+                spin.setSelection(2);
+                break;
+            case "es":
+                spin.setSelection(3);
+                break;
+            case "de":
+                spin.setSelection(4);
+                break;
+            case "cr":
+                spin.setSelection(5);
+                break;
+        }
+    }
+
+
+
+
+    /**
      * Async for refreshing definitions of the page */
+    private String definitionEntries(String word, String language) {
+        return "https://api.dictionaryapi.dev/api/v2/entries/" + language + "/" + word;
+    }
+
     private class GoogleDefinition extends AsyncTask<String, Integer, String> {
-        private Word word;
+        private final Word word;
 
         public GoogleDefinition(Word wordPre) {
             word = wordPre;
@@ -221,8 +321,8 @@ public class DefinitionFragment extends Fragment {
                 InputStream stream = urlConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
 
-                StringBuffer buffer = new StringBuffer();
-                String line = "";
+                StringBuilder buffer = new StringBuilder();
+                String line;
 
                 while((line = bufferedReader.readLine()) != null) {
                     buffer.append(line + "\n");
@@ -242,10 +342,8 @@ public class DefinitionFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            String title;
             String definition;
             String examples;
-            String synonyms;
 
             try {
 //                System.out.println(result);
@@ -254,7 +352,6 @@ public class DefinitionFragment extends Fragment {
                 JSONObject jsonObjectWord = jsonArrayRoot.getJSONObject(0);
 
                 JSONArray jsonArrayMeanings = jsonObjectWord.getJSONArray("meanings");
-                System.out.println("LENGTH : " + jsonArrayMeanings.length());
                 JSONObject jsonObjectMeanings = jsonArrayMeanings.getJSONObject(0);
 
                 JSONArray jsonArrayDefinitions = jsonObjectMeanings.getJSONArray("definitions");
@@ -262,13 +359,8 @@ public class DefinitionFragment extends Fragment {
                 definition = jsonObjectDefinitions.getString("definition");
                 word.setDefinition(definition);
 
-                JSONObject jsonObjectExample = jsonArrayDefinitions.getJSONObject(0);
                 examples = jsonObjectDefinitions.getString("example");
                 word.setExample(examples);
-
-
-
-                System.out.println("EXAMPLES : " + examples);
             } catch (Exception e) {
 
             }

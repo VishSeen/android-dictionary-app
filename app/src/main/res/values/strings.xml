@@ -63,6 +63,7 @@
     <string name="frag_txt_fr">French</string>
 
     <!-- Definition Fragment -->
+    <string name="frag_definition_spinner_error">Choose language</string>
     <string name="frag_definition_txt_all_words">ALL WORDS</string>
     <string name="frag_definition_txt_definition_loading">Loading definitions…</string>
 
