@@ -2,10 +2,12 @@
 A multi lingual Mauritian dictionary. Includes voice search, reading definition searched with the help of Google Text to Speech api, translate words and view definitions from a list of languages. And also adding our native mauritian language to the world via the app.
 
 ### Technology used
-- Oxford dictionary API
+- Basic Dictionary API
+- Google Translation API
 - Google Text to Speech API
 - Google Speech to Text API
 - Android Room for local database to store searched words
+- Sqlite3 for Creole database
 
 
 ### UI Designs
