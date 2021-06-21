@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    // speech result here
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -143,11 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(mViewPager.getCurrentItem()) {
                     case 0:
                         // Reload current fragment
-                        mViewPager.setCurrentItem(1);
-
-                        Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show();
-
-                        mViewPager.setCurrentItem(0);
+                        getSupportFragmentManager().beginTransaction().remove(definitionFragment).commit();
                         break;
                     case 1:
                         // translate word

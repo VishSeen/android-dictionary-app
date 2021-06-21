@@ -131,7 +131,7 @@ public class TranslationFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                Log.v("Spinner selected : ", (String) parent.getItemAtPosition(position));
+
                 if (position == 0) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
                 }
@@ -164,6 +164,9 @@ public class TranslationFragment extends Fragment {
                         mLanguage = "de";
                         break;
                     case 5:
+                        mLanguage = "it";
+                        break;
+                    case 6:
                         mLanguage = "ht";
                         break;
                 }

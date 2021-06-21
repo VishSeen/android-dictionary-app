@@ -80,6 +80,8 @@ public class DefinitionFragment extends Fragment {
         mListWords = new ArrayList<>();
         mListSearched = new ArrayList<>();
         mListDefinitions = new ArrayList<>();
+
+        Toast.makeText(getActivity(), "On create", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -163,6 +165,9 @@ public class DefinitionFragment extends Fragment {
                         mLanguage = "de";
                         break;
                     case 5:
+                        mLanguage = "it";
+                        break;
+                    case 6:
                         mLanguage = "cr";
                         break;
 
@@ -173,9 +178,6 @@ public class DefinitionFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // if refresh and has bundle, search word
-        getVoiceBundle();
-
         return view;
     }
 
@@ -183,18 +185,19 @@ public class DefinitionFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        getVoiceBundle();
-    }
-
-    public void getVoiceBundle(){
         Bundle args = getArguments();
 
-        if (args != null) {
-            CharSequence voiceResult = args.getString("word");
-            System.out.println("BUNDLE : " + args);
-//            searchWord(voiceResult);
+        if(args != null) {
+            String voiceResult = args.getString("word");
+            System.out.println("BUNDLE : " + voiceResult);
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
 
 
 
@@ -287,8 +290,11 @@ public class DefinitionFragment extends Fragment {
             case "de":
                 spin.setSelection(4);
                 break;
-            case "cr":
+            case "it":
                 spin.setSelection(5);
+                break;
+            case "cr":
+                spin.setSelection(6);
                 break;
         }
     }
