@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
+import com.vish.apps.dictionary.util.VoiceResultListener;
 import com.vish.apps.dictionary.util.Word;
 
 import org.json.JSONArray;
@@ -39,7 +40,7 @@ import java.util.Locale;
 /**
  * A fragment representing a list of Items.
  */
-public class DefinitionFragment extends Fragment {
+public class DefinitionFragment extends Fragment implements VoiceResultListener {
 
     private String mLanguage;
     private String mDeviceLanguage = Locale.getDefault().toString();
@@ -184,22 +185,12 @@ public class DefinitionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        Bundle args = getArguments();
-
-        if(args != null) {
-            String voiceResult = args.getString("word");
-            System.out.println("BUNDLE : " + voiceResult);
-        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
     }
-
-
-
 
     /**
      * Function to initialize word.
@@ -261,6 +252,10 @@ public class DefinitionFragment extends Fragment {
     }
 
 
+    @Override
+    public void onVoiceResult(String voiceText) {
+        searchWord(voiceText);
+    }
 
     /**
      * Pass device language code to process

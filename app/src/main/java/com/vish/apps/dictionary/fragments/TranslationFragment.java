@@ -28,6 +28,7 @@ import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 import com.vish.apps.dictionary.R;
+import com.vish.apps.dictionary.util.VoiceResultListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,23 +40,17 @@ import java.util.Locale;
  * Use the {@link TranslationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TranslationFragment extends Fragment {
+public class TranslationFragment extends Fragment implements VoiceResultListener {
 
     private TextToSpeech textToSpeech;
     private final int SPEECH_TITLE_LENGTH = 1800;
 
-    private Spinner spinnerFrom;
-    private Spinner spinnerTo;
-
     private EditText edtTranslation;
     private TextView txtTranslated;
 
-    private String translateFrom;
-    private String translateTo;
     private String mLanguage;
     private String mLanguageTranslatedSpeech;
 
-    private boolean connected;
     private Translate translate;
 
 
@@ -113,8 +108,8 @@ public class TranslationFragment extends Fragment {
         });
 
         // getting views
-        spinnerFrom = view.findViewById(R.id.frag_translation_spinner_to_translate);
-        spinnerTo = view.findViewById(R.id.frag_translation_spinner_change_language);
+        Spinner spinnerFrom = view.findViewById(R.id.frag_translation_spinner_to_translate);
+        Spinner spinnerTo = view.findViewById(R.id.frag_translation_spinner_change_language);
         edtTranslation = view.findViewById(R.id.frag_translation_edt_translation);
         ImageButton btnTranslationSpeak = view.findViewById(R.id.frag_translation_part_translation_btn_speak);
         txtTranslated = view.findViewById(R.id.frag_translation_txt_translated);
@@ -146,7 +141,8 @@ public class TranslationFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-                Log.v("Spinner selected : ", (String) parent.getItemAtPosition(position));
+                Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
+
                 switch (position) {
                     case 0:
                         Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
@@ -185,8 +181,6 @@ public class TranslationFragment extends Fragment {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
                             if (checkInternetConnection()) {
-                                //If there is internet connection, get translate service and start translation:
-                                getTranslateService();
                                 translate(edtTranslation.getText().toString(), mLanguage);
 
                             } else {
@@ -246,11 +240,13 @@ public class TranslationFragment extends Fragment {
 
 
 
-    public void translate (String text, String language) {
+    public void translate(String text, String language) {
+        //If there is internet connection, get translate service and start translation:
+        getTranslateService();
+
         //Get input text to be translated:
-        translateFrom = text;
-        Translation translation = translate.translate(translateFrom, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
-        translateTo = translation.getTranslatedText();
+        Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
+        String translateTo = translation.getTranslatedText();
 
         //Translated text and original text are set to TextViews:
         txtTranslated.setText(translateTo);
@@ -264,7 +260,7 @@ public class TranslationFragment extends Fragment {
         ConnectivityManager connectivityManager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //Means that we are connected to a network (mobile or wi-fi)
-        connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+        boolean connected = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
         return connected;
@@ -290,7 +286,11 @@ public class TranslationFragment extends Fragment {
         }
     }
 
+    // an interface which gets the voice result and start the translation
+    @Override
+    public void onVoiceResult(String voiceText) {
+        edtTranslation.setText(voiceText);
 
-
-
+        translate(voiceText, mLanguage);
+    }
 }

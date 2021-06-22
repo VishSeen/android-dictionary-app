@@ -1,15 +1,12 @@
 package com.vish.apps.dictionary;
 
-import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.speech.RecognizerIntent;
@@ -20,10 +17,10 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.cloud.translate.Translation;
 import com.vish.apps.dictionary.adapters.ViewPagerAdapter;
 import com.vish.apps.dictionary.fragments.DefinitionFragment;
 import com.vish.apps.dictionary.fragments.TranslationFragment;
+import com.vish.apps.dictionary.util.VoiceResultListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 mViewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private BottomNavigationView bottomNavView;
-    public String url;
+    private VoiceResultListener mVoiceResult;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,32 +124,34 @@ public class MainActivity extends AppCompatActivity {
                 if (speechText.equalsIgnoreCase("open settings")) {
                     startActivity(new Intent(this, SettingsActivity.class));
                 }
+                if (speechText.equalsIgnoreCase("Open definition page")) {
+                    mViewPager.setCurrentItem(0, true);
+                }
                 if (speechText.equalsIgnoreCase("Open translation page")) {
                     mViewPager.setCurrentItem(1, true);
                 }
 
-
-                // setting voice string to bundle of fragment
-                Bundle bundle = new Bundle();
-                bundle.putString("word", speechText);
-
-                DefinitionFragment definitionFragment = new DefinitionFragment();
-                definitionFragment.setArguments(bundle);
-
-                TranslationFragment translationFragment = new TranslationFragment();
-                translationFragment.setArguments(bundle);
-
-                // check to see which fragment is active
-                switch(mViewPager.getCurrentItem()) {
-                    case 0:
-                        // Reload current fragment
-                        getSupportFragmentManager().beginTransaction().remove(definitionFragment).commit();
-                        break;
-                    case 1:
-                        // translate word
-                        break;
-                }
+                mVoiceResult.onVoiceResult(speechText);
             }
+        } 
+    }
+
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+
+        if (fragment instanceof VoiceResultListener) {
+            mVoiceResult = (VoiceResultListener) fragment;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if(mViewPager.getCurrentItem() == 1) {
+            mViewPager.setCurrentItem(0);
         }
     }
 }
