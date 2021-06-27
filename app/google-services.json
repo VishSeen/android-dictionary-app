@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "360220326704",
+    "firebase_url": "https://dictionary-a6efb-default-rtdb.firebaseio.com",
+    "project_id": "dictionary-a6efb",
+    "storage_bucket": "dictionary-a6efb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360220326704:android:af3183fa3731b0fff926f5",
+        "android_client_info": {
+          "package_name": "com.vish.apps.dictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360220326704-8mcc61f4hmvic6qukiv2719d6ior97fs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlt3drCcJB1ekrvnYfMEamoxPmAg066uI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360220326704-8mcc61f4hmvic6qukiv2719d6ior97fs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

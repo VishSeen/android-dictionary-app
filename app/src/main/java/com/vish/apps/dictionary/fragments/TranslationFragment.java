@@ -1,15 +1,18 @@
 package com.vish.apps.dictionary.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Binder;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.vish.apps.dictionary.CameraActivity;
+import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 
@@ -54,12 +59,10 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
     private Translate translate;
 
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -75,7 +78,6 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
      * @param param2 Parameter 2.
      * @return A new instance of fragment TranslationFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static TranslationFragment newInstance(String param1, String param2) {
         TranslationFragment fragment = new TranslationFragment();
         Bundle args = new Bundle();
@@ -110,8 +112,9 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
         // getting views
         Spinner spinnerFrom = view.findViewById(R.id.frag_translation_spinner_to_translate);
         Spinner spinnerTo = view.findViewById(R.id.frag_translation_spinner_change_language);
-        edtTranslation = view.findViewById(R.id.frag_translation_edt_translation);
+        edtTranslation = view.findViewById(R.id.act_camera_translation_edt_extracted_txt);
         ImageButton btnTranslationSpeak = view.findViewById(R.id.frag_translation_part_translation_btn_speak);
+        ImageButton btnCamera = view.findViewById(R.id.frag_translation_part_translation_btn_camera);
         txtTranslated = view.findViewById(R.id.frag_translation_txt_translated);
         ImageButton btnTranslatedSpeak = view.findViewById(R.id.frag_translation_part_translated_btn_speak);
 
@@ -134,7 +137,6 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
             }
         });
         spinnerTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -170,7 +172,6 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
             }
         });
 
@@ -199,6 +200,15 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
                     }
                 }
                 return false;
+            }
+        });
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //open the camera => create an Intent object
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 101);
             }
         });
 
@@ -292,5 +302,16 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
         edtTranslation.setText(voiceText);
 
         translate(voiceText, mLanguage);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Intent intent = new Intent(getActivity(), CameraActivity.class);
+        Bundle bundle = data.getExtras();
+        intent.putExtras(bundle);
+
+        startActivity(intent);
     }
 }

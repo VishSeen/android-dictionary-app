@@ -240,6 +240,7 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
      * Load the words and add to list depending on the
      * language selected on the spinner.
      * */
+    // TODO: 23/06/2021 clear listview and refresh page on language change
     private void loadWords(String language) {
         if(mListWords.size() != 0) {
             mListWords.clear();

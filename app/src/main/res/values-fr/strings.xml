@@ -30,6 +30,12 @@
     <string name="act_definitions_txt_tool_definition">Définition</string>
     <string name="act_definitions_txt_definition">DÉFINITIONS</string>
 
+
+    <!-- Camera translation Activity -->
+    <string name="act_camera_translation_txt_back">Camera</string>
+    <string name="act_camera_translation_txt_found">Texte extracté ici …</string>
+
+
     <!-- Settings Activity -->
     <string name="title_activity_settings">ParamètresActivité</string>
     <string name="act_settings_txt_tool_settings">Les paramètres</string>
