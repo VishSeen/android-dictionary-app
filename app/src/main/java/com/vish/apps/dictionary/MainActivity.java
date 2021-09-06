@@ -25,6 +25,8 @@ import com.vish.apps.dictionary.util.VoiceResultListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static com.vish.apps.dictionary.CameraActivity.CAMERA_TEXT;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = DefinitionActivity.class.getName();
     private final int REQ_CODE = 100;
@@ -132,8 +134,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 mVoiceResult.onVoiceResult(speechText);
+            } if (resultCode == CAMERA_TEXT) {
+                // CODE TO DELETE ITEM
+                super.onActivityResult(requestCode, resultCode, data);
             }
-        } 
+        }
     }
 
 

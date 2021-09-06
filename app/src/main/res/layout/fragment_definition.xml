@@ -84,7 +84,9 @@ android:tag="definition_fragment">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/list_dictionary">
+        tools:listitem="@layout/list_dictionary"
+        android:clipToPadding="false"
+        android:paddingBottom="72dp">
     </ListView>
 
     <androidx.constraintlayout.widget.Guideline

@@ -31,6 +31,7 @@ import com.vish.apps.dictionary.util.VoiceResultListener;
 
 public class CameraActivity extends AppCompatActivity {
 
+    public static int CAMERA_TEXT = 1234;
     private EditText edtExtracted;
     private ImageView imgData;
     private FloatingActionButton btnDone;
@@ -43,6 +44,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+//        mVoiceResult = (VoiceResultListener) this;
 
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             //grant the permission
@@ -54,6 +56,7 @@ public class CameraActivity extends AppCompatActivity {
         edtExtracted = (EditText) findViewById(R.id.act_camera_translation_edt_extracted_txt);
         btnDone = (FloatingActionButton) findViewById(R.id.act_camera_translation_btn_done);
 
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,15 +64,13 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent();
-//                intent.putExtra("camera_result", edtExtracted.getText().toString());
-//                setResult(RESULT_OK, intent);
-
-                mVoiceResult.onVoiceResult(edtExtracted.getText().toString());
-                Toast.makeText(CameraActivity.this, edtExtracted.getText().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.putExtra("camera_result", edtExtracted.getText().toString());
+                setResult(CAMERA_TEXT, intent);
 
                 finish();
             }

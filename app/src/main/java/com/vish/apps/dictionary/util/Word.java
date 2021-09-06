@@ -6,7 +6,6 @@ public class Word {
     private String mTitle;
     private String mDefinition;
     private String mExample;
-    private String mSynonyms;
 
     public Word () {
         mId =+ 1;
@@ -21,11 +20,10 @@ public class Word {
         mDefinition = definition;
     }
 
-    public Word (String title, String definition, String example, String synonyms) {
+    public Word (String title, String definition, String example) {
         mTitle = title;
         mDefinition = definition;
         mExample = example;
-        mSynonyms = synonyms;
     }
 
     public String getTitle() {
@@ -37,9 +35,6 @@ public class Word {
     public String getExample() {
         return mExample;
     }
-    public String getSynonyms() {
-        return mSynonyms;
-    }
 
     public void setTitle(String title) {
         mTitle = title;
@@ -49,8 +44,5 @@ public class Word {
     }
     public void setExample(String example) {
         mExample = example;
-    }
-    public void setSynonyms(String synonyms) {
-        mSynonyms = synonyms;
     }
 }

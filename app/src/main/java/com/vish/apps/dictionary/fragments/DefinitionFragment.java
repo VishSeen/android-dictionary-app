@@ -45,7 +45,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
     private String mLanguage;
     private String mDeviceLanguage = Locale.getDefault().toString();
 
-
     private EditText edtSearch;
     private Spinner spinnerLanguage;
     private DefinitionsListAdapter adapter;
@@ -54,7 +53,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
     private String url;
 
     private Resources mResources;
-    private ListView listView;
 
     private List<Word> mListSearched;
     private List<Word> mListDefinitions;
@@ -89,19 +87,18 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_definition, container, false);
 
+
         // change language code to match api response
         correctLanguageCode(mDeviceLanguage);
-
-        predefinedWords = mResources.getStringArray(R.array.default_words);
 
         edtSearch = view.findViewById(R.id.act_main_edt_search);
         spinnerLanguage = view.findViewById(R.id.frag_translation_spinner_change_language);
         adapter = new DefinitionsListAdapter(getContext(), mListWords);
-        listView = view.findViewById(R.id.frag_definition_listview);
+        ListView listView = view.findViewById(R.id.frag_definition_listview);
         listView.setAdapter(adapter);
 
 
-        initWord(); // loops through array of predefined words
+        loadWords(mLanguage); // loops through array of predefined words
         setSpinnerLanguage(spinnerLanguage, mLanguage); // set spinner to correct language
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,7 +111,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
                 intent.putExtra("Title", currentWord.getTitle());
                 intent.putExtra("Definition", currentWord.getDefinition());
                 intent.putExtra("Examples", currentWord.getExample());
-                intent.putExtra("Synonyms", currentWord.getSynonyms());
                 startActivity(intent);
             }
         });
@@ -156,11 +152,9 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
                         break;
                     case 2:
                         mLanguage = "fr";
-                        Toast.makeText(getActivity(), "French", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
                         mLanguage = "es";
-                        Toast.makeText(getActivity(), "Spain", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
                         mLanguage = "de";
@@ -171,8 +165,9 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
                     case 6:
                         mLanguage = "cr";
                         break;
-
                 }
+
+                loadWords(mLanguage);
             }
 
             @Override
@@ -192,21 +187,7 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
         super.onStart();
     }
 
-    /**
-     * Function to initialize word.
-     * To be used with language spinner for quick refresh.
-     * */
-    private void initWord() {
-        for (String predefinedWord : predefinedWords) {
-            Word word = new Word(predefinedWord, getResources().getString(R.string.frag_definition_txt_definition_loading));
-            url = definitionEntries(predefinedWord, mLanguage);
-            new GoogleDefinition(word).execute(url);
 
-            mListDefinitions.add(word);
-        }
-
-        mListWords.addAll(mListDefinitions);
-    }
 
 
     public void searchWordClick(View v) {
@@ -242,15 +223,32 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
      * */
     // TODO: 23/06/2021 clear listview and refresh page on language change
     private void loadWords(String language) {
+        // clear the list and adapter
         if(mListWords.size() != 0) {
             mListWords.clear();
+            adapter.clear();
         }
 
-        // get words from room (english)
-        // translate the word
+        // check the language and loop through words
+        if(!(language.equalsIgnoreCase("cr"))) {
+            predefinedWords = mResources.getStringArray(R.array.default_words);
+
+            for (String predefinedWord : predefinedWords) {
+                Word word = new Word(predefinedWord, getResources().getString(R.string.frag_definition_txt_definition_loading));
+                url = definitionEntries(predefinedWord, mLanguage);
+                new GoogleDefinition(word).execute(url);
+
+                mListDefinitions.add(word);
+            }
+        } else {
+
+        }
+
         // add to list
-        // refresh list 
+        mListWords.addAll(mListDefinitions);
+        mListDefinitions.clear();
     }
+
 
 
     @Override
