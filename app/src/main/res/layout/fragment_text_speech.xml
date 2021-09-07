@@ -6,17 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/talk"
-        tools:src="@drawable/talk" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/act_definition_fab_talk2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        android:clickable="false"
+        app:ensureMinTouchTargetSize="false"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="@+id/frag_welcome_txt_title"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/frag_welcome_txt_title"
+        app:srcCompat="@drawable/ic_volume_up_24"
+        app:useCompatPadding="false" />
 
     <TextView
         android:id="@+id/frag_welcome_txt_title"
@@ -24,30 +27,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/frag_voice_title"
+        android:text="@string/frag_tts_title"
         android:textColor="@color/blue_text_primary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
-    <TextView
-        android:id="@+id/frag_translation_txt_subtitle"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="@string/frag_voice_subtitle"
+        android:text="@string/frag_tts_subtitle"
         android:textColor="@color/blue_text_secondary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/frag_welcome_txt_title"
         app:layout_constraintStart_toStartOf="@+id/frag_welcome_txt_title"
         app:layout_constraintTop_toBottomOf="@+id/frag_welcome_txt_title" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

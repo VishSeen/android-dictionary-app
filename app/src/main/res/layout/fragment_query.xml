@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.TranslateFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/act_main_edt_search2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="152dp"
+        android:background="@drawable/back_search"
+        android:clickable="false"
+        android:drawableLeft="@drawable/ic_search_24"
+        android:drawablePadding="4dp"
+        android:elevation="2dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins_light"
+        android:hint="@string/act_main_txt_search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="textPersonName"
+        android:longClickable="false"
+        android:paddingLeft="14dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="14dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="8dp"
+        android:singleLine="true"
+        android:textColor="@color/blue_text_primary"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/frag_welcome_txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/frag_query_title"
+        android:textColor="@color/blue_text_primary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/frag_query_subtitle"
+        android:textColor="@color/blue_text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/frag_welcome_txt_title"
+        app:layout_constraintStart_toStartOf="@+id/frag_welcome_txt_title"
+        app:layout_constraintTop_toBottomOf="@+id/frag_welcome_txt_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

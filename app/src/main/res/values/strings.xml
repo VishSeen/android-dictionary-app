@@ -53,7 +53,7 @@
 
 
     <!--================ FRAGMENT ==================-->
-    <!-- Welcome Fragment -->
+    <!-- Walkthrough Fragment -->
     <string name="frag_btn_next">NEXT</string>
     <string name="frag_voice_btn_finish">FINISH</string>
     <string name="frag_welcome_title">WELCOME</string>
@@ -61,7 +61,26 @@
     <string name="frag_translation_subtitle">Learn in different languages.</string>
     <string name="frag_voice_title">VOICE RECOGNITION</string>
     <string name="frag_voice_subtitle">Your voice will be my command.</string>
-    <string name="frag_language_title">CHOOSE YOUR LANGUAGE</string>
+    <string name="frag_userguide_title">USER GUIDE</string>
+    <string name="frag_userguide_subtitle">Hands on with the application</string>
+    <string name="frag_main_title">HOME PAGE</string>
+    <string name="frag_main_subtitle">This is the main screen</string>
+    <string name="frag_query_title">SEARCH BAR</string>
+    <string name="frag_query_subtitle">Use this to query for words</string>
+    <string name="frag_def_title">DEFINITION PAGE</string>
+    <string name="frag_def_subtitle">View the definition of your query</string>
+    <string name="frag_set_title">SETTINGS</string>
+    <string name="frag_set_subtitle">Access your setting page with the help of this button</string>
+    <string name="frag_trans_title">TRANSLATION PAGE</string>
+    <string name="frag_trans_subtitle">Swipe left of the homepage to access translation functionalities</string>
+    <string name="frag_cam_title">CAMERA TRANSLATION</string>
+    <string name="frag_cam_subtitle">Perform camera translation with this button</string>
+    <string name="frag_tts_title">TEXT-TO-SPEECH</string>
+    <string name="frag_tts_subtitle">Clicking this button will read the definitions for you</string>
+    <string name="frag_voicerec_title">VOICE RECOGNITION</string>
+    <string name="frag_voicerec_subtitle">Use this button for voice search or translation</string>
+    <string name="frag_all_title">ALL SET TO GO</string>
+    <string name="frag_all_subtitle">You are all set to use the application</string>
 
     <!-- Language Fragment -->
     <string name="frag_txt_eng">English</string>

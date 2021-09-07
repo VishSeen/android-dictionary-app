@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.widget.Toast;
 
@@ -25,8 +24,6 @@ public class SplashActivity extends AppCompatActivity {
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         sharedEditor = sharedPreferences.edit();
 
-        // uncomment this for working splash / work through
-//        startActivity(new Intent(SplashActivity.this, WalkthroughActivity.class)); //delete this went finishing working with walk through
 
         if (isFirstTime()) {
             startActivity(new Intent(SplashActivity.this, WalkthroughActivity.class));
