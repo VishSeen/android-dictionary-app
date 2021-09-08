@@ -1,10 +1,19 @@
 package com.vish.apps.dictionary.util;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "creole_sec")
 public class Word {
 
+    @PrimaryKey(autoGenerate = true)
     private static int mId = 0;
+    @ColumnInfo(name = "title")
     private String mTitle;
+    @ColumnInfo(name = "definition")
     private String mDefinition;
+    @ColumnInfo(name = "definitionEn")
     private String mExample;
 
     public Word () {

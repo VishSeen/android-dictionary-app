@@ -1,12 +1,16 @@
 package com.vish.apps.dictionary.fragments;
 
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +22,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vish.apps.dictionary.DefinitionActivity;
+import com.vish.apps.dictionary.MainActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
+import com.vish.apps.dictionary.util.AppDatabase;
+import com.vish.apps.dictionary.util.Creole;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 import com.vish.apps.dictionary.util.Word;
 
@@ -50,8 +57,10 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
     private DefinitionsListAdapter adapter;
     private String[] predefinedWords;
     private List<Word> mListWords;
+    private List<Word> mListDefinitionsCreole;
     private String url;
 
+    private AppDatabase appDatabase;
     private Resources mResources;
 
     private List<Word> mListSearched;
@@ -86,7 +95,7 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_definition, container, false);
-
+        appDatabase = Room.databaseBuilder(getActivity(), AppDatabase.class, "word_creole").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
         // change language code to match api response
         correctLanguageCode(mDeviceLanguage);
@@ -105,7 +114,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Word currentWord = (Word) adapterView.getItemAtPosition(i);
-
 
                 Intent intent = new Intent(getActivity(), DefinitionActivity.class);
                 intent.putExtra("Title", currentWord.getTitle());
@@ -201,18 +209,26 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
         }
 
         Word searchedWord = new Word(toSearch, "Loading...");
-        url = definitionEntries(toSearch, mLanguage);
-        new GoogleDefinition(searchedWord).execute(url);
+        
+        if (!(mLanguage.equalsIgnoreCase("cr"))) {
+            url = definitionEntries(toSearch, mLanguage);
+            new GoogleDefinition(searchedWord).execute(url);
+        } else {
+//            searchedWord = appDatabase.appDatabaseObject();
+            Toast.makeText(getActivity(), "WORKING", Toast.LENGTH_SHORT).show();
+        }
 
         if(mListSearched.size() != 0) {
             mListSearched.clear();
         }
 
-        mListSearched.add(searchedWord);
 
+        mListSearched.add(searchedWord);
         // clears the listview to show new searched item
         adapter.clear();
         mListWords.addAll(mListSearched);
+        
+        
     }
 
 
@@ -237,15 +253,18 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
                 Word word = new Word(predefinedWord, getResources().getString(R.string.frag_definition_txt_definition_loading));
                 url = definitionEntries(predefinedWord, mLanguage);
                 new GoogleDefinition(word).execute(url);
-
                 mListDefinitions.add(word);
             }
-        } else {
 
+
+            mListWords.addAll(mListDefinitions);
+        } else {
+            mListDefinitionsCreole = appDatabase.appDatabaseObject().getWords();
+
+            mListWords.addAll(mListDefinitionsCreole);
         }
 
         // add to list
-        mListWords.addAll(mListDefinitions);
         mListDefinitions.clear();
     }
 

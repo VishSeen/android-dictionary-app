@@ -9,7 +9,7 @@ import com.vish.apps.dictionary.fragments.AllSetFragment;
 import com.vish.apps.dictionary.fragments.CameraPageFragment;
 import com.vish.apps.dictionary.fragments.DefPageFragment;
 import com.vish.apps.dictionary.fragments.MainActivityFragment;
-import com.vish.apps.dictionary.QueryFragment;
+import com.vish.apps.dictionary.fragments.QueryFragment;
 import com.vish.apps.dictionary.fragments.SetFragment;
 import com.vish.apps.dictionary.fragments.TextSpeechFragment;
 import com.vish.apps.dictionary.fragments.TransPageFragment;

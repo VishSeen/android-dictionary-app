@@ -1,4 +1,4 @@
-package com.vish.apps.dictionary;
+package com.vish.apps.dictionary.fragments;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.vish.apps.dictionary.R;
 
 public class QueryFragment extends Fragment {
 

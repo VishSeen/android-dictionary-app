@@ -18,8 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vish.apps.dictionary.adapters.ViewPagerAdapter;
-import com.vish.apps.dictionary.fragments.DefinitionFragment;
-import com.vish.apps.dictionary.fragments.TranslationFragment;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 
 import java.util.ArrayList;
@@ -97,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     public void fabSpeechClick(View view) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

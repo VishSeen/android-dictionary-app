@@ -33,6 +33,7 @@ import com.google.cloud.translate.Translation;
 import com.vish.apps.dictionary.CameraActivity;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
+import com.vish.apps.dictionary.RoomActivity;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 
 import java.io.IOException;
@@ -59,32 +60,8 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
     private Translate translate;
 
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     public TranslationFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TranslationFragment.
-     */
-    public static TranslationFragment newInstance(String param1, String param2) {
-        TranslationFragment fragment = new TranslationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -97,7 +74,13 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_translation, container, false);
-
+        ImageButton imageButton = view.findViewById(R.id.frag_translation_btn_switch);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), RoomActivity.class));
+            }
+        });
 
         // create TTS and set language to default device
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
@@ -108,6 +91,8 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
                 }
             }
         });
+
+
 
         // getting views
         Spinner spinnerFrom = view.findViewById(R.id.frag_translation_spinner_to_translate);

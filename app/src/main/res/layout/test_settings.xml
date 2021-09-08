@@ -63,9 +63,9 @@
             android:fontFamily="@font/poppins_medium"
             android:text="Languages"
             android:textColor="@color/blue_dark"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-            app:layout_constraintStart_toEndOf="@+id/imageButton"
-            app:layout_constraintTop_toTopOf="@+id/imageButton" />
+            app:layout_constraintBottom_toBottomOf="@+id/frag_translation_btn_switch"
+            app:layout_constraintStart_toEndOf="@+id/frag_translation_btn_switch"
+            app:layout_constraintTop_toTopOf="@+id/frag_translation_btn_switch" />
 
         <Switch
             android:id="@+id/switch1"
@@ -153,7 +153,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageButton10" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/frag_translation_btn_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -173,7 +173,7 @@
             android:background="@android:color/transparent"
             android:tint="@color/blue_dark"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton"
+            app:layout_constraintTop_toBottomOf="@+id/frag_translation_btn_switch"
             app:srcCompat="@drawable/ic_dark_mode" />
 
         <ImageButton

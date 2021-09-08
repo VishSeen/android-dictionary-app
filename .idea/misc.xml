@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/activity_definition.xml" value="0.3875" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/activity_main.xml" value="0.3685185185185185" />
+        <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/activity_room.xml" value="0.325" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/activity_walkthrough.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_all_set.xml" value="0.3875" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_camera_page.xml" value="0.3875" />
@@ -16,10 +17,13 @@
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_text_speech.xml" value="0.3875" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_trans_page_fragmentr.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_translate.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_translation.xml" value="0.23055555555555557" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_user_guide.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_voice.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_voice_rec.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/fragment_welcome.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/layout/settings_activity.xml" value="0.2713541666666667" />
+        <entry key="..\:/Users/vish/OneDrive/Vish/Development/Apps/Java/Projects/Dictionary/app/src/main/res/xml/settings_preferences.xml" value="0.23055555555555557" />
       </map>
     </option>
   </component>
