@@ -36,6 +36,7 @@ public class CameraActivity extends AppCompatActivity {
     private ImageView imgData;
     private FloatingActionButton btnDone;
     private VoiceResultListener mVoiceResult;
+    private String cameraText;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -68,13 +69,15 @@ public class CameraActivity extends AppCompatActivity {
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("camera_result", edtExtracted.getText().toString());
                 Intent intent = new Intent();
-                intent.putExtra("camera_result", edtExtracted.getText().toString());
+                intent.putExtras(bundle);
                 setResult(CAMERA_TEXT, intent);
-
                 finish();
             }
         });
+
         processImage();
     }
 
@@ -106,8 +109,8 @@ public class CameraActivity extends AppCompatActivity {
         task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
             @Override
             public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                String s = firebaseVisionText.getText();
-                edtExtracted.setText(s);
+                cameraText = firebaseVisionText.getText();
+                edtExtracted.setText(cameraText);
             }
         });
         //6. if task is failure

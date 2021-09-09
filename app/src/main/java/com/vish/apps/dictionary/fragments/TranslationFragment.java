@@ -1,5 +1,7 @@
 package com.vish.apps.dictionary.fragments;
 
+import static com.vish.apps.dictionary.CameraActivity.CAMERA_TEXT;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -34,18 +36,13 @@ import com.vish.apps.dictionary.CameraActivity;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.RoomActivity;
+import com.vish.apps.dictionary.util.Language;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TranslationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TranslationFragment extends Fragment implements VoiceResultListener {
 
     private TextToSpeech textToSpeech;
@@ -126,32 +123,15 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
         });
         spinnerTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
 
-                switch (position) {
-                    case 0:
-                        Toast.makeText(getActivity(), getResources().getString(R.string.frag_translation_spinner_error), Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        mLanguage = "en";
-                        break;
-                    case 2:
-                        mLanguage = "fr";
-                        break;
-                    case 3:
-                        mLanguage = "es";
-                        break;
-                    case 4:
-                        mLanguage = "de";
-                        break;
-                    case 5:
-                        mLanguage = "it";
-                        break;
-                    case 6:
-                        mLanguage = "ht";
-                        break;
+                Language changeLanguage = new Language(position);
+                mLanguage = changeLanguage.getLanguage();
+
+                // automatic change translated word on spinner change
+                if (!(edtTranslation.getText().toString().isEmpty())) {
+                    translate(edtTranslation.getText().toString(), mLanguage);
                 }
             }
 
@@ -293,10 +273,19 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Intent intent = new Intent(getActivity(), CameraActivity.class);
-        Bundle bundle = data.getExtras();
-        intent.putExtras(bundle);
+        if (requestCode == 101) {
+            Intent intent = new Intent(getActivity(), CameraActivity.class);
+            Bundle bundle = data.getExtras();
+            intent.putExtras(bundle);
 
-        startActivity(intent);
+            startActivityForResult(intent, CAMERA_TEXT);
+        }
+
+        if (resultCode == CAMERA_TEXT) {
+            Bundle bundle = data.getExtras();
+            String cameraText = bundle.getString("camera_result");
+
+            onVoiceResult(cameraText);
+        }
     }
 }

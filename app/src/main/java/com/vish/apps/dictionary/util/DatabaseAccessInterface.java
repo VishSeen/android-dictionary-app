@@ -14,6 +14,6 @@ public interface DatabaseAccessInterface {
     @Query("SELECT * FROM creole")
     public List<Word> getWords();
 
-    @Query("SELECT * FROM creole WHERE title == :word")
-    public Word getCreoleWord(String word);
+    @Query("SELECT title, definition FROM creole WHERE title == :title")
+    public Word getCreoleWord(String title);
 }

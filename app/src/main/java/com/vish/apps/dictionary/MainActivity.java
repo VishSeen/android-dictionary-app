@@ -133,9 +133,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 mVoiceResult.onVoiceResult(speechText);
-            } if (resultCode == CAMERA_TEXT) {
-                // CODE TO DELETE ITEM
-                super.onActivityResult(requestCode, resultCode, data);
             }
         }
     }

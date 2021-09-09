@@ -1,7 +1,5 @@
 package com.vish.apps.dictionary.fragments;
 
-import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +19,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vish.apps.dictionary.DefinitionActivity;
-import com.vish.apps.dictionary.MainActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.adapters.DefinitionsListAdapter;
 import com.vish.apps.dictionary.util.AppDatabase;
-import com.vish.apps.dictionary.util.Creole;
+import com.vish.apps.dictionary.util.Language;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 import com.vish.apps.dictionary.util.Word;
 
@@ -88,8 +84,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
         mListWords = new ArrayList<>();
         mListSearched = new ArrayList<>();
         mListDefinitions = new ArrayList<>();
-
-        Toast.makeText(getActivity(), "On create", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -151,29 +145,9 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
         spinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        Toast.makeText(getActivity(), getResources().getString(R.string.frag_definition_spinner_error), Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        mLanguage = "en_US";
-                        break;
-                    case 2:
-                        mLanguage = "fr";
-                        break;
-                    case 3:
-                        mLanguage = "es";
-                        break;
-                    case 4:
-                        mLanguage = "de";
-                        break;
-                    case 5:
-                        mLanguage = "it";
-                        break;
-                    case 6:
-                        mLanguage = "cr";
-                        break;
-                }
+
+                Language language = new Language(position);
+                mLanguage = language.getLanguage();
 
                 loadWords(mLanguage);
             }
@@ -214,7 +188,7 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
             url = definitionEntries(toSearch, mLanguage);
             new GoogleDefinition(searchedWord).execute(url);
         } else {
-//            searchedWord = appDatabase.appDatabaseObject();
+            searchedWord = appDatabase.appDatabaseObject().getCreoleWord(toSearch);
             Toast.makeText(getActivity(), "WORKING", Toast.LENGTH_SHORT).show();
         }
 
@@ -227,8 +201,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
         // clears the listview to show new searched item
         adapter.clear();
         mListWords.addAll(mListSearched);
-        
-        
     }
 
 
