@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -36,6 +37,7 @@ import com.vish.apps.dictionary.CameraActivity;
 import com.vish.apps.dictionary.DefinitionActivity;
 import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.RoomActivity;
+import com.vish.apps.dictionary.util.AppDatabase;
 import com.vish.apps.dictionary.util.Language;
 import com.vish.apps.dictionary.util.VoiceResultListener;
 
@@ -47,7 +49,7 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
 
     private TextToSpeech textToSpeech;
     private final int SPEECH_TITLE_LENGTH = 1800;
-
+    private AppDatabase appDatabase;
     private EditText edtTranslation;
     private TextView txtTranslated;
 
@@ -68,8 +70,9 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        appDatabase = Room.databaseBuilder(getActivity(), AppDatabase.class, "word_creole").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+
         View view = inflater.inflate(R.layout.fragment_translation, container, false);
         ImageButton imageButton = view.findViewById(R.id.frag_translation_btn_switch);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -216,17 +219,35 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
 
 
     public void translate(String text, String language) {
+        String translateTo = null;
+
         //If there is internet connection, get translate service and start translation:
         getTranslateService();
 
-        //Get input text to be translated:
-        Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
-        String translateTo = translation.getTranslatedText();
+        if(language.equalsIgnoreCase("en_US")) {
+            language = "en";
+        }
+
+        if(!(language.equalsIgnoreCase("cr"))) {
+            //Get input text to be translated:
+            Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
+
+            translateTo = translation.getTranslatedText();
+        } else {
+            //Get input text to be translated:
+            Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage("en"), Translate.TranslateOption.model("base"));
+            text = translation.getTranslatedText();
+
+            String db = appDatabase.appDatabaseObject().getEnglishWord(text);
+            if (db != null) {
+                translateTo = db;
+            }
+        }
 
         //Translated text and original text are set to TextViews:
         txtTranslated.setText(translateTo);
-
     }
+
 
 
 

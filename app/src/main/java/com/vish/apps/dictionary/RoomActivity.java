@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.vish.apps.dictionary.R;
 import com.vish.apps.dictionary.util.AppDatabase;
 import com.vish.apps.dictionary.util.Creole;
 
@@ -37,7 +36,7 @@ public class RoomActivity extends AppCompatActivity {
         Creole creole = new Creole();
         creole.setWord(edtWord.getText().toString());
         creole.setDefinition(edtDefinition.getText().toString());
-        creole.setDefinitionEn(edtDefinitionEn.getText().toString());
+        creole.setWordEn(edtDefinitionEn.getText().toString());
 
         appDatabase.appDatabaseObject().addWord(creole);
     }

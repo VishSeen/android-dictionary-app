@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class DefinitionsListAdapter extends ArrayAdapter<Word> {
 
         TextView txtTitle = (TextView) rootView.findViewById(R.id.list_all_words_txt_title);
         TextView txtDefinition = (TextView) rootView.findViewById(R.id.list_all_words_txt_definition);
+
         txtTitle.setText(mListWords.get(position).getTitle());
         txtDefinition.setText(mListWords.get(position).getDefinition());
 

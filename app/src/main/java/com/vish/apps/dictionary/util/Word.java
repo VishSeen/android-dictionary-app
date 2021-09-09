@@ -13,7 +13,6 @@ public class Word {
     private String mTitle;
     @ColumnInfo(name = "definition")
     private String mDefinition;
-    @ColumnInfo(name = "definitionEn")
     private String mExample;
 
     public Word () {

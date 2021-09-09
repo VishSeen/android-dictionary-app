@@ -13,8 +13,8 @@ public class Creole {
     private String word;
     @ColumnInfo(name = "definition")
     private String definition;
-    @ColumnInfo(name = "definition_en")
-    private String definitionEn;
+    @ColumnInfo(name = "word_en")
+    private String wordEn;
 
     public int getId() {
         return id;
@@ -40,11 +40,11 @@ public class Creole {
         this.definition = definition;
     }
 
-    public String getDefinitionEn() {
-        return definitionEn;
+    public String getWordEn() {
+        return wordEn;
     }
 
-    public void setDefinitionEn(String definitionEn) {
-        this.definitionEn = definitionEn;
+    public void setWordEn(String wordEn) {
+        this.wordEn = wordEn;
     }
 }

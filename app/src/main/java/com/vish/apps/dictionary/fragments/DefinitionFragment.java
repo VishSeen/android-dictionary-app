@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vish.apps.dictionary.DefinitionActivity;
@@ -54,7 +55,9 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
     private String[] predefinedWords;
     private List<Word> mListWords;
     private List<Word> mListDefinitionsCreole;
+    private ListView listView;
     private String url;
+    private TextView txtNoWords;
 
     private AppDatabase appDatabase;
     private Resources mResources;
@@ -97,8 +100,9 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
         edtSearch = view.findViewById(R.id.act_main_edt_search);
         spinnerLanguage = view.findViewById(R.id.frag_translation_spinner_change_language);
         adapter = new DefinitionsListAdapter(getContext(), mListWords);
-        ListView listView = view.findViewById(R.id.frag_definition_listview);
+        listView = view.findViewById(R.id.frag_definition_listview);
         listView.setAdapter(adapter);
+        txtNoWords = view.findViewById(R.id.frag_def_txt_error);
 
 
         loadWords(mLanguage); // loops through array of predefined words
@@ -189,7 +193,6 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
             new GoogleDefinition(searchedWord).execute(url);
         } else {
             searchedWord = appDatabase.appDatabaseObject().getCreoleWord(toSearch);
-            Toast.makeText(getActivity(), "WORKING", Toast.LENGTH_SHORT).show();
         }
 
         if(mListSearched.size() != 0) {
@@ -228,11 +231,9 @@ public class DefinitionFragment extends Fragment implements VoiceResultListener 
                 mListDefinitions.add(word);
             }
 
-
             mListWords.addAll(mListDefinitions);
         } else {
             mListDefinitionsCreole = appDatabase.appDatabaseObject().getWords();
-
             mListWords.addAll(mListDefinitionsCreole);
         }
 
