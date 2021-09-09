@@ -219,29 +219,24 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
 
 
     public void translate(String text, String language) {
-        String translateTo = null;
+        String translateTo = "";
 
-        //If there is internet connection, get translate service and start translation:
-        getTranslateService();
+//        //If there is internet connection, get translate service and start translation:
+//        getTranslateService();
+//        //Get input text to be translated:
+//        Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
+//        translateTo = translation.getTranslatedText();
 
-        if(language.equalsIgnoreCase("en_US")) {
-            language = "en";
-        }
-
-        if(!(language.equalsIgnoreCase("cr"))) {
-            //Get input text to be translated:
-            Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
-
-            translateTo = translation.getTranslatedText();
-        } else {
-            //Get input text to be translated:
-            Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage("en"), Translate.TranslateOption.model("base"));
-            text = translation.getTranslatedText();
-
+        if(language.equalsIgnoreCase("cr")) {
             String db = appDatabase.appDatabaseObject().getEnglishWord(text);
             if (db != null) {
                 translateTo = db;
             }
+        } else {
+            //Get input text to be translated:
+            Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
+
+            translateTo = translation.getTranslatedText();
         }
 
         //Translated text and original text are set to TextViews:
