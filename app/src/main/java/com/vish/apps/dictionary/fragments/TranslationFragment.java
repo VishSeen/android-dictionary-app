@@ -221,11 +221,9 @@ public class TranslationFragment extends Fragment implements VoiceResultListener
     public void translate(String text, String language) {
         String translateTo = "";
 
-//        //If there is internet connection, get translate service and start translation:
-//        getTranslateService();
-//        //Get input text to be translated:
-//        Translation translation = translate.translate(text, Translate.TranslateOption.targetLanguage(language), Translate.TranslateOption.model("base"));
-//        translateTo = translation.getTranslatedText();
+        //If there is internet connection, get translate service and start translation:
+        getTranslateService();
+
 
         if(language.equalsIgnoreCase("cr")) {
             String db = appDatabase.appDatabaseObject().getEnglishWord(text);
